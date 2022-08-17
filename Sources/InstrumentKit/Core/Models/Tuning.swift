@@ -57,8 +57,9 @@ extension Tuning: Equatable, Hashable {
 
 extension Tuning: Comparable {
     public static func < (lhs: Self, rhs: Self) -> Bool {
-        // The standard tuning should be first when sorting, followed by alphabetical order.
-        if lhs.localizationKey == Self.defaultTuningKey {
+        // Prioritize standard tunings.
+        // In the event the localization keys match, sort by name.
+        if lhs.localizationKey != rhs.localizationKey, lhs.localizationKey == Self.defaultTuningKey {
             return true
         } else {
             return lhs.name < rhs.name
