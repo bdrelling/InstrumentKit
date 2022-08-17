@@ -1,0 +1,71 @@
+name: Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+env:
+  DEPLOY_DIRECTORY: deploy
+  LC_ALL: en_US.UTF-8
+  LANG: en_US.UTF-8
+
+jobs:
+  prepare:
+    name: Prepare
+    # Available Runners: https://github.com/actions/virtual-environments
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.10.0
+        with:
+          access_token: ${{ github.token }}
+  # lint:
+  #   name: Lint
+  #   runs-on: macos-11
+  #   permissions:
+  #     pull-requests: write
+  #   env:
+  #     DANGER_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v2
+  #     - name: Install Dependencies
+  #       run: |
+  #         bundle install
+  #         brew install swiftformat
+  #     - name: Run Danger
+  #       run: sh ./scripts/danger_lint.sh
+  swift_test_linux:
+    name: swift test (Ubuntu)
+    # Available Runners: https://github.com/actions/virtual-environments
+    runs-on: ubuntu-latest
+    # Available Docker Images: https://hub.docker.com/_/swift/
+    container: swift:5.6
+    needs: [prepare]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Run Tests
+        run: sh ./scripts/swift_test.sh
+      - name: Upload Step Output
+        uses: actions/upload-artifact@v1
+        with:
+          name: Output (Ubuntu)
+          path: ${{ env.DEPLOY_DIRECTORY }}
+  swift_test_macos:
+    name: swift test (macOS)
+    # Available Runners: https://github.com/actions/virtual-environments
+    runs-on: macos-12
+    needs: [prepare]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Run Tests
+        run: sh ./scripts/swift_test.sh
+      - name: Upload Step Output
+        uses: actions/upload-artifact@v1
+        with:
+          name: Output (macOS)
+          path: ${{ env.DEPLOY_DIRECTORY }}
