@@ -55,7 +55,7 @@ extension Tuning: CustomStringConvertible {
     }
 }
 
-extension Tuning {
+public extension Tuning {
     func closestNote(to frequency: Float) -> Note? {
         self.notes.closest(to: frequency)
     }
@@ -71,7 +71,7 @@ extension Tuning: Localizable {
     }
 }
 
-extension RawRepresentable where Self: CaseIterable, Self.RawValue == Tuning {
+public extension RawRepresentable where Self: CaseIterable, Self.RawValue == Tuning {
     static var allTunings: [Self.RawValue] { Self.allCases.map(\.rawValue) }
 }
 
