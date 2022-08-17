@@ -20,12 +20,8 @@ public extension Localizable {
 
 // MARK: - Extensions
 
-public extension Array where Element: Localizable {
-    func localized(to locale: Locale) -> Self {
+extension Array: Localizable where Element: Localizable {
+    public func localized(to locale: Locale) -> Self {
         self.map { $0.localized(to: locale) }
-    }
-
-    func localized(to languageCode: String) -> Self {
-        self.localized(to: .init(identifier: languageCode))
     }
 }
