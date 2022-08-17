@@ -13,17 +13,20 @@
 - [Work In Progress](#work-in-progress)
 - [Installation](#installation)
 - [Usage](#usage)
+- [Performance](#performance)
 - [Contributing](#contributing)
 - [Credits](#credits)
 - [License](#license)
 
 ## Work In Progress
 
-:warning: This package is very much a work in progress.
+:warning: This package is very much a work in progress. Here are some immediate next steps.
 
-For the time being, this package is focused on collecting, validating, and localizing data for **string instruments only**. Once string instruments feel accurate and stable and the library is extremely tested, the plan will be to add brass, keyboards, percussions, and more.
-
-In addition, the library currently leverages an internal dependency for musical notation (`NoteKit`), but should be backed by the more accurate [`AudioKit/Tonic`](https://github.com/AudioKit/Tonic) as soon as possible.
+- For the time being, this package is focused on collecting, validating, and localizing data for **string instruments only**. Once string instruments feel accurate and stable and the library is extremely tested, the plan will be to add brass, keyboards, percussions, and more.
+- The library currently leverages an internal dependency for musical notation (`NoteKit`), but should be reaplced by the more accurate and better maintained [`AudioKit/Tonic`](https://github.com/AudioKit/Tonic) as soon as possible. Musical math and theory is difficult, and `InstrumentKit` doesn't want to be in the business of musical math or theory.
+- Provide system for ensuring paritally localized models provide English values by default. Currently, they fall back on the `localizationKey`, meaning `"Guitar"` translated to a partial localiation without the `"guitar"` key will show up as `"guitar"`, not `"Guitar"`.
+  - This already works for _missing_ localizations, but doesn't work for _partial_ localizations.
+  - This functionality shouldn't be much more work to achieve without increasing performance.
 
 ## Installation
 
@@ -99,13 +102,6 @@ let guitarTunings: [Tuning] = Tuning.Guitar.allTunings
 
 > _`allTunings` is provided as a convenience for `allCases.map(\.rawValue)`._
 
-Get _all_ tunings for _all_ string instruments. _(Note: This method is primarily used for testing and validation.)_
-
-```swift
-let guitarTunings: [Tuning] = Tuning.allCases
-let guitarTunings: [Tuning] = .allCases
-```
-
 #### Localization
 
 By default, every `StringInstrument` and `Tuning` will be localized to `Locale.current`. However, you can also localize models on the fly simply by calling `.localized(to:)` with a `Locale`, locale identifier (`String`), or using the `SupportedLanguage` `enum`.
@@ -123,6 +119,34 @@ Localize a _collection_ of models.
 let spanishInstruments: [StringInstrument] = .allCases.localized(to: "es")
 let spanishGuitarTunings: [Tuning] = Tuning.Guitar.allTunings.localized(to: "es")
 ```
+
+## Performance
+
+### Localization
+
+`String` localization usage in this module matches standard usage of `Bundle.localizedString(forKey:value:table:)` and `NSLocalizedString`. By initializing these strings through localization tables every time, it ensures that anyone consuming the module will get localization out of the box without any additional work, as they will always localize using `Locale.current`.
+
+### String Initialized Tunings
+
+Seeing the following in `Tuning+Definitions.swift` might make you uncomfortable:
+
+```swift
+enum Guitar: Tuning, CaseIterable {
+    case standard = "standard: E2 A2 D3 G3 B3 E4"
+    case dropD = "drop_d: D2 A2 D3 G3 B3 E4"
+    case openD = "open_d: D2 A2 D3 F#3 A3 D4"
+}
+```
+
+This approach was not taken lightly. Instruments have dozens of commonly applicable tunings, and there are hundreds of instruments. Maintaining a large data set without an easy-to-parse method of analyzing, comparing, and fact-checking that data becomes extremely difficult over time.
+
+`String` parsing of a `Tuning` takes place in the special `init` at the bottom of `Tuning+Definitions.swift`. By making `Tuning` conform to `ExpressibleByStringLiteral`, it allows us to create `CaseIterable` enums that are easy to validate _and_ provide `Tuning` collection and organization functionality out of the box. 
+
+The logic is simple and very easy to validate: loop through _every `Tuning` in the project_ and if any of our localization keys in any of our supported languages come back with an error of any sort, numerous unit tests in the project will blow up.
+
+Additionally, these enums are _only initialized once_, meaning that if you keep accessing one of these enums over and over, you can be sure that it won't be re-parsing the `Tuning` definition each time.
+
+If you have an alternative to propose, feel free to open an issue or pull request. Several approaches were considered before landing on `String`-initialized `Tuning`s, but a fresh set of eyes is always helpful. If you have a performant way of defining this data that is type-safe yet provides the same level of convenience and readability (for maintenance and data accuracy), I'm interested!
 
 ## Contributing
 

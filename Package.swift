@@ -16,7 +16,7 @@ let package = Package(
         .library(name: "NoteKit", targets: ["NoteKit"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/jpsim/Yams", from: "5.0.1"),
+        // Development
         .package(url: "https://github.com/swift-kipple/Tools", .upToNextMinor(from: "0.2.3")),
     ],
     targets: [
@@ -24,7 +24,6 @@ let package = Package(
         .target(
             name: "InstrumentKit",
             dependencies: [
-                .product(name: "Yams", package: "Yams"),
                 .target(name: "NoteKit"),
             ],
             resources: [

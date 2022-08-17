@@ -8,6 +8,8 @@ public extension Tuning {
 
     enum Guitar: Tuning, CaseIterable {
         case standard = "standard: E2 A2 D3 G3 B3 E4"
+        case dropD = "drop_d: D2 A2 D3 G3 B3 E4"
+        case openD = "open_d: D2 A2 D3 F#3 A3 D4"
     }
 
     enum IrishBouzouki: Tuning, CaseIterable {
@@ -20,11 +22,6 @@ public extension Tuning {
 }
 
 // MARK: - Extensions
-
-extension Tuning: CaseIterable {
-    // Instead of keeping a list in two places, just flatten the list of all tunings across all StringInstruments.
-    public static var allCases = StringInstrument.allCases.flatMap(\.tunings)
-}
 
 extension Tuning: ExpressibleByStringLiteral, ExpressibleByStringInterpolation {
     /// Initializes a `Tuning` using a `String` with the format `<localizationKey>: <notes>`.

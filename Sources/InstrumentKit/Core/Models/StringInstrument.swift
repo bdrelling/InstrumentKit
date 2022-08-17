@@ -30,6 +30,22 @@ public struct StringInstrument {
         self.init(localizationKey: localizationKey, locale: locale, name: name, numberOfStrings: numberOfStrings, numberOfCourses: numberOfCourses, tunings: tunings)
     }
 
+    public init<Enum>(
+        localizationKey: String,
+        locale: Locale = .current,
+        numberOfStrings: Int,
+        numberOfCourses: Int,
+        tunings: Enum.Type
+    ) where Enum: RawRepresentable, Enum: CaseIterable, Enum.RawValue == Tuning {
+        self.init(
+            localizationKey: localizationKey,
+            locale: locale,
+            numberOfStrings: numberOfStrings,
+            numberOfCourses: numberOfCourses,
+            tunings: tunings.allCases.map(\.rawValue)
+        )
+    }
+
     /// Creates an unlocalized and unlocalizable instance, typically for purposes like mocking.
     public init(name: String, numberOfStrings: Int, numberOfCourses: Int, tunings: [Tuning]) {
         self.init(localizationKey: name, locale: nil, name: name, numberOfStrings: numberOfStrings, numberOfCourses: numberOfCourses, tunings: tunings)
