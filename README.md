@@ -8,6 +8,6 @@
 
 **InstrumentKit** provides type-safe access to localized musical instruments and their tunings.
 
-## Examples
-
 ## License
+
+**InstrumentKit** is released under the MIT license. See [LICENSE](/LICENSE) for details.
