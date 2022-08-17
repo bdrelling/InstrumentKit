@@ -126,11 +126,7 @@ Looking for localized instrument and tuning definitions but don't use Swift? No 
 
 All instruments and tunings in this package are _also_ available by making API requests to [instruments.fyi](https://instruments.fyi). You can fetch all instruments, specific instruments, tunings, and more.
 
-Please note: This server behind this API has _very_ low performance and is **NOT** intended to be used at runtime for any reason -- at a certain point, the data should not be changing so frequently. As such, it is **heavily rate-limited**.
-
-Instead, fetch the information you need and store the response, then de-serialize the data for your own application. Or better yet: use the JSON to generate the client-side code you need!
-
-> [instruments.fyi](https://instruments.fyi) is built using [Vapor](https://vapor.codes), a [Server-side Swift](https://www.swift.org/server/) framework. Curious to see how it works? The project can be found at [bdrelling/instruments.fyi](https://github.com/bdrelling/instruments.fyi).
+For more information, see [instruments.fyi](https://github.com/bdrelling/instruments.fyi) or visit [instruments.fyi](https://instruments.fyi).
 
 ## Performance
 
