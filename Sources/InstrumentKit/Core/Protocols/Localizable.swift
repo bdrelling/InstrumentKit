@@ -9,8 +9,8 @@ public protocol Localizable {
 // MARK: - Defaults
 
 public extension Localizable {
-    func localized(to languageCode: String) -> Self {
-        self.localized(to: .init(identifier: languageCode))
+    func localized(to localeIdentifier: String) -> Self {
+        self.localized(to: .init(identifier: localeIdentifier))
     }
 
     func localized(to supportedLanguage: SupportedLanguage) -> Self {

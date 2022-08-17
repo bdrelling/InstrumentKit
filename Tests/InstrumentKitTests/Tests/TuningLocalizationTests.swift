@@ -39,15 +39,15 @@ final class TuningLocalizationTests: XCTestCase {
 // MARK: - Extensions
 
 private extension TuningLocalizationTests {
-    func validate(languageCode: String) {
-        for tuning in Tuning.allCases.localized(to: languageCode) {
+    func validate(localeIdentifier: String) {
+        for tuning in Tuning.allCases.localized(to: localeIdentifier) {
             // The name should not contain the localization key,
             // which would imply that the name could not be localized.
             XCTAssertFalse(tuning.name.contains(tuning.localizationKey), "Tuning \(tuning) is not properly localized.")
         }
     }
 
-    func validate(languageCodes: [String] = SupportedLanguage.allCases.map(\.rawValue)) {
-        languageCodes.forEach(self.validate)
+    func validate(localeIdentifiers: [String] = SupportedLanguage.allCases.map(\.rawValue)) {
+        localeIdentifiers.forEach(self.validate)
     }
 }

@@ -39,15 +39,15 @@ final class StringInstrumentLocalizationTests: XCTestCase {
 // MARK: - Extensions
 
 private extension StringInstrumentLocalizationTests {
-    func validate(languageCode: String) {
-        for instrument in StringInstrument.allCases.localized(to: languageCode) {
+    func validate(localeIdentifier: String) {
+        for instrument in StringInstrument.allCases.localized(to: localeIdentifier) {
             // The name should not contain the localization key,
             // which would imply that the name could not be localized.
             XCTAssertFalse(instrument.name.contains(instrument.localizationKey), "Instrument \(instrument) is not properly localized.")
         }
     }
 
-    func validate(languageCodes: [String] = SupportedLanguage.allCases.map(\.rawValue)) {
-        languageCodes.forEach(self.validate)
+    func validate(localeIdentifiers: [String] = SupportedLanguage.allCases.map(\.rawValue)) {
+        localeIdentifiers.forEach(self.validate)
     }
 }
