@@ -1,6 +1,6 @@
 // Copyright © 2022 Brian Drelling. All rights reserved.
 
-public enum SupportedLanguage: String, Codable, Equatable, CaseIterable {
+public enum SupportedLanguage: String, Codable, Equatable, Hashable, CaseIterable {
     case english = "en"
     case spanish = "es"
 }
