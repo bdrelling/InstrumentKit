@@ -3,19 +3,25 @@
 import Foundation
 
 extension Bundle {
-    func localized(for locale: Locale) -> Bundle? {
-        if let languageCode = locale.languageCode {
-            return self.localized(for: languageCode)
-        } else {
-            return nil
+    func localized(for locale: Locale) throws -> Bundle? {
+        guard let languageCode = locale.languageCode else {
+            throw LocalizationError.projectNotFound(locale)
         }
+
+        return try self.localized(for: languageCode)
     }
 
-    func localized(for language: String) -> Bundle? {
-        guard let path = self.path(forResource: language, ofType: "lproj") else {
-            return nil
+    func localized(for languageCode: String) throws -> Bundle? {
+        guard let path = self.path(forResource: languageCode, ofType: "lproj") else {
+            throw LocalizationError.projectNotFound(languageCode)
         }
 
         return .init(path: path)
+    }
+
+    func localizedString(for locale: Locale = .current, key: String, value: String? = nil, table: String) -> String {
+        let bundle = (try? self.localized(for: locale)) ?? self
+
+        return bundle.localizedString(forKey: key, value: value, table: table)
     }
 }

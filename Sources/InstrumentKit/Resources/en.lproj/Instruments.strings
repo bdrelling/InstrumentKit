@@ -1,3 +1,5 @@
 /* String Instruments */
 
-"Guitar" = "Guitar";
+"bass.name" = "Bass";
+"guitar.name" = "Guitar";
+"ukulele.name" = "Ukulele";

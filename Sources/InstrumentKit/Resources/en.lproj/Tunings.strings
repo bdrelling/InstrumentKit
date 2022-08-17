@@ -1,8 +1,8 @@
 /* Tunings */
 
-"Standard" = "Standard";
+"standard" = "Standard";
 
 /* Guitar */
 
-"Drop D" = "Drop D";
-"Open D" = "Open D";
+"drop_d" = "Drop D";
+"open_d" = "Open D";

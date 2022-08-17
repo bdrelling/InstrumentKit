@@ -9,7 +9,7 @@ final class TuningTests: XCTestCase {
     let jsonEncoder = JSONEncoder()
 
     func testGuitarStandardTuning() {
-        let tuning: Tuning = .mockedGuitarStandard
+        let tuning: Tuning = .guitar.standard
 
         let noteClasses = tuning.notes.map(\.noteClass)
         XCTAssertEqual(noteClasses, [
@@ -47,6 +47,6 @@ final class TuningTests: XCTestCase {
 
 extension TuningTests: SerializationTesting {
     func testEncodingAndDecodingSucceeds() throws {
-        try self.reserializeAndCompare(Tuning.mockedGuitarStandard)
+        try self.reserializeAndCompare(Tuning.guitar.standard)
     }
 }

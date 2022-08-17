@@ -3,71 +3,49 @@
 import Foundation
 import NoteKit
 
-public struct Tuning: Equatable {
-    static let cache = TuningCache(filename: "tunings", fileExtension: "yml")
-    private static let defaultTuningName = "Standard"
+public struct Tuning: Codable {
+    private static let localizationTableName = "Tunings"
+    private static let defaultTuningKey = "standard"
 
-    public let name: LocalizedTuningName
+    public let localizationKey: String
+    public let locale: Locale
+    public let name: String
     public let notes: [Note]
 
-    public init(name: LocalizedTuningName, notes: [Note]) {
+    private init(localizationKey: String, locale: Locale = .current, name: String, notes: [Note]) {
+        self.localizationKey = localizationKey
+        self.locale = locale
         self.name = name
         self.notes = notes
     }
 
-    public init(name: LocalizedTuningName, notes: Note...) {
-        self.init(name: name, notes: notes)
+    public init(localizationKey: String, locale: Locale = .current, notes: [Note]) {
+        let name = Bundle.module.localizedString(for: locale, key: localizationKey, table: Self.localizationTableName)
+
+        self.init(localizationKey: localizationKey, locale: locale, name: name, notes: notes)
+    }
+
+    public init(localizationKey: String, locale: Locale = .current, notes: Note...) {
+        self.init(localizationKey: localizationKey, locale: locale, notes: notes)
     }
 
     public init(name: String, notes: [Note]) {
-        self.init(name: .init(value: name), notes: notes)
+        self.init(localizationKey: name, name: name, notes: notes)
     }
-
-    public init(name: String, notes: Note...) {
-        self.init(name: name, notes: notes)
-    }
-
-    public init(instrument: LocalizedInstrumentName, tuning: LocalizedTuningName) throws {
-        guard let tunings = try Self.cache.get().first(where: { $0.instrumentName == instrument }) else {
-            throw InstrumentKitError.invalidInstrument(instrument)
-        }
-
-        guard let tuning = tunings.first(where: { $0.name == tuning }) else {
-            throw InstrumentKitError.invalidTuning(tuning)
-        }
-
-        self = try tuning.localized(to: instrument.locale)
-    }
-}
-
-// MARK: - Supporting Types
-
-public typealias LocalizedTuningName = LocalizedText<TuningsTableKey>
-
-public struct TuningsTableKey: LocalizedTableKey {
-    public static let tableName = "Tunings"
 }
 
 // MARK: - Extensions
 
-extension Tuning: Codable {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-
-        self.name = try container.decode(LocalizedText.self, forKey: .name)
-
-        do {
-            self.notes = try container.decode([Note].self, forKey: .notes)
-        } catch {
-            let rawNotesString = try container.decode(String.self, forKey: .notes)
-            self.notes = .init(rawValue: rawNotesString)
-        }
+extension Tuning: Equatable {
+    public static func == (lhs: Self, rhs: Self) -> Bool {
+        lhs.localizationKey == rhs.localizationKey
+            && lhs.notes == rhs.notes
     }
 }
 
 extension Tuning: Identifiable {
     public var id: String {
-        self.name.key
+        self.localizationKey
     }
 }
 
@@ -86,7 +64,8 @@ extension Tuning {
 extension Tuning: Localizable {
     public func localized(to locale: Locale) throws -> Self {
         .init(
-            name: try self.name.localized(to: locale),
+            localizationKey: self.localizationKey,
+            locale: locale,
             notes: self.notes
         )
     }
@@ -94,6 +73,12 @@ extension Tuning: Localizable {
 
 // MARK: - Convenience
 
-public extension LocalizedTuningName {
-    static let standard: Self = .init(value: "Standard")
+extension Tuning {
+    static func standard(_ notes: [Note]) -> Self {
+        .init(localizationKey: Self.defaultTuningKey, notes: notes)
+    }
+
+    static func standard(_ notes: Note...) -> Self {
+        .standard(notes)
+    }
 }

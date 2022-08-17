@@ -13,6 +13,6 @@ final class StringInstrumentTests: XCTestCase {
 
 extension StringInstrumentTests: SerializationTesting {
     func testEncodingAndDecodingSucceeds() throws {
-        try self.reserializeAndCompare(StringInstrument.mockedGuitar)
+        try self.reserializeAndCompare(StringInstrument.guitar)
     }
 }

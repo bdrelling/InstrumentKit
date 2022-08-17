@@ -3,12 +3,16 @@
 import Foundation
 
 public enum LocalizationError: LocalizedError {
-    case projectNotFound(Locale)
+    case projectNotFound(String)
 
     public var errorDescription: String? {
         switch self {
-        case let .projectNotFound(locale):
-            return "Localization project (.lproj) not found for locale '\(locale)'."
+        case let .projectNotFound(languageCode):
+            return "Localization project (.lproj) not found for locale '\(languageCode)'."
         }
+    }
+
+    public static func projectNotFound(_ locale: Locale) -> Self {
+        .projectNotFound(locale.identifier)
     }
 }
