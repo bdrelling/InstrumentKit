@@ -62,7 +62,7 @@ public extension Tuning {
 }
 
 extension Tuning: Localizable {
-    public func localized(to locale: Locale) throws -> Self {
+    public func localized(to locale: Locale) -> Self {
         .init(
             localizationKey: self.localizationKey,
             locale: locale,

@@ -61,7 +61,7 @@ extension StringInstrument: Identifiable {
 }
 
 extension StringInstrument: Localizable {
-    public func localized(to locale: Locale) throws -> Self {
+    public func localized(to locale: Locale) -> Self {
         .init(
             localizationKey: self.localizationKey,
             locale: locale,

@@ -5,9 +5,9 @@ import Foundation
 import XCTest
 
 final class StringInstrumentLocalizationTests: XCTestCase {
-    func testLocalizationSucceeds() throws {
+    func testLocalizationSucceeds() {
         let english = StringInstrument.guitar
-        let spanish = try StringInstrument.guitar.localized(to: "es")
+        let spanish = StringInstrument.guitar.localized(to: "es")
 
         // They should evaluate to equal.
         XCTAssertEqual(english, spanish)
@@ -17,9 +17,9 @@ final class StringInstrumentLocalizationTests: XCTestCase {
         XCTAssertNotEqual(english.locale, spanish.locale)
     }
 
-    func testMissingLocalizationSucceeds() throws {
+    func testMissingLocalizationSucceeds() {
         let english = StringInstrument.guitar
-        let missing = try StringInstrument.guitar.localized(to: "xx")
+        let missing = StringInstrument.guitar.localized(to: "xx")
 
         // They should evaluate to equal.
         XCTAssertEqual(english, missing)
