@@ -3,7 +3,7 @@
 import Foundation
 import NoteKit
 
-public struct Tuning: Codable {
+public struct Tuning: Codable, Hashable {
     private static let localizationTableName = "Tunings"
     private static let defaultTuningKey = "standard"
 
@@ -69,6 +69,10 @@ extension Tuning: Localizable {
             notes: self.notes
         )
     }
+}
+
+extension RawRepresentable where Self: CaseIterable, Self.RawValue == Tuning {
+    static var allTunings: [Self.RawValue] { Self.allCases.map(\.rawValue) }
 }
 
 // MARK: - Convenience

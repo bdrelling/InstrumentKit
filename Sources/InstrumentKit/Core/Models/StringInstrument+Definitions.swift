@@ -5,36 +5,28 @@ public extension StringInstrument {
         localizationKey: "bass",
         numberOfStrings: 4,
         numberOfCourses: 1,
-        tunings: [
-            Tuning.bass.standard,
-        ]
+        tunings: Tuning.Bass.allTunings
     )
 
     static let guitar: Self = .init(
         localizationKey: "guitar",
         numberOfStrings: 6,
         numberOfCourses: 1,
-        tunings: [
-            Tuning.guitar.standard,
-        ]
+        tunings: Tuning.Guitar.allTunings
     )
 
     static let irishBouzouki: Self = .init(
         localizationKey: "irish_bouzouki",
         numberOfStrings: 4,
         numberOfCourses: 1,
-        tunings: [
-            Tuning.irishBouzouki.standard,
-        ]
+        tunings: Tuning.IrishBouzouki.allTunings
     )
 
     static let ukulele: Self = .init(
         localizationKey: "ukulele",
-        numberOfStrings: 6,
+        numberOfStrings: 4,
         numberOfCourses: 1,
-        tunings: [
-            Tuning.ukulele.standard,
-        ]
+        tunings: Tuning.Ukulele.allTunings
     )
 }
 

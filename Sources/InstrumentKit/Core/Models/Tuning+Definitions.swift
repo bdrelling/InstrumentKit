@@ -2,19 +2,49 @@
 
 public extension Tuning {
     // The type names in this extension are lowercased for the sake of creating a prettier outward interface.
-    enum bass {
-        public static let standard: Tuning = .standard(.e(2), .a(2), .d(3), .g(3))
+    enum Bass: Tuning, CaseIterable {
+        case standard = "standard: E2 A2 D3 G3"
     }
 
-    enum guitar {
-        public static let standard: Tuning = .standard(.e(2), .a(2), .d(3), .g(3), .b(3), .e(4))
+    enum Guitar: Tuning, CaseIterable {
+        case standard = "standard: E2 A2 D3 G3 B3 E4"
     }
 
-    enum irishBouzouki {
-        public static let standard: Tuning = .standard(.g(2), .d(3), .a(3), .d(4))
+    enum IrishBouzouki: Tuning, CaseIterable {
+        case standard = "standard: G2 D3 A3 D4"
     }
 
-    enum ukulele {
-        public static let standard: Tuning = .standard(.g(4), .c(4), .e(4), .a(4))
+    enum Ukulele: Tuning, CaseIterable {
+        case standard = "standard: G4 C4 E4 A4"
+    }
+}
+
+// MARK: - Extensions
+
+extension Tuning: CaseIterable {
+    // Instead of keeping a list in two places, just flatten the list of all tunings across all StringInstruments.
+    public static var allCases = StringInstrument.allCases.flatMap(\.tunings)
+}
+
+extension Tuning: ExpressibleByStringLiteral, ExpressibleByStringInterpolation {
+    /// Initializes a `Tuning` using a `String` with the format `<localizationKey>: <notes>`.
+    /// Example: `"standard: E2 A2 D3 G3 B3 E4"` defines a standard guitar tuning.
+    public init(stringLiteral: String) {
+        let components = stringLiteral.split(separator: ":")
+
+        // Unless we have exactly two components, return an empty "error" tuning to indicate a failure.
+        guard components.count == 2 else {
+            // We add the stringLiteral value to the name to help identify the failure in tests.
+            self.init(localizationKey: "error (\(stringLiteral))", notes: [])
+            return
+        }
+
+        // Our first component is the localization key.
+        let localizationKey = String(components[0])
+
+        // Our second component is the array of notes.
+        let notes = components[1].trimmingCharacters(in: .whitespaces)
+
+        self.init(localizationKey: localizationKey, notes: .init(rawValue: notes))
     }
 }
