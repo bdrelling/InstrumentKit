@@ -73,6 +73,12 @@ extension StringInstrument: Equatable {
     }
 }
 
+extension StringInstrument: Comparable {
+    public static func < (lhs: Self, rhs: Self) -> Bool {
+        lhs.name < rhs.name
+    }
+}
+
 extension StringInstrument: Identifiable {
     public var id: String {
         self.localizationKey

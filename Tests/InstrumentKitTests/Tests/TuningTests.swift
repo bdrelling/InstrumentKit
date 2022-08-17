@@ -60,6 +60,23 @@ final class TuningTests: XCTestCase {
         XCTAssertEqual(tuning.name, "Standard")
         XCTAssertEqual(tuning.notes, [.a(1), .b(2), .c(3), .d(4)])
     }
+
+    func testSortingPrioritizesStandardTunings() throws {
+        let unsortedTunings: [Tuning] = [
+            .Guitar.openD.rawValue,
+            .Guitar.dropD.rawValue,
+            .Guitar.standard.rawValue,
+        ]
+
+        let sortedTunings: [Tuning] = [
+            // Standard is first, then alphabetical order.
+            .Guitar.standard.rawValue,
+            .Guitar.dropD.rawValue,
+            .Guitar.openD.rawValue,
+        ]
+
+        XCTAssertEqual(unsortedTunings.sorted(), sortedTunings)
+    }
 }
 
 extension TuningTests: SerializationTesting {
