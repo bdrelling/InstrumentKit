@@ -1,0 +1,56 @@
+# Swift .gitignore
+#
+# References:
+# - https://raw.githubusercontent.com/github/gitignore/main/Swift.gitignore
+# - https://github.com/vapor/vapor/blob/main/.gitignore
+
+## OS X Folder Attributes
+.DS_Store
+
+## Obj-C/Swift Specific
+*.hmap
+
+## App Packaging
+*.ipa
+*.dSYM.zip
+*.dSYM
+
+## Xcode
+xcuserdata/
+
+## Xcode Playgrounds
+timeline.xctimeline
+playground.xcworkspace
+
+# Visual Studio Code
+.vscode
+
+## Swift Package Manager
+Packages
+.build/
+.swiftpm/
+
+## CocoaPods
+Pods/
+
+## fastlane
+fastlane/report.xml
+fastlane/screenshots/**/*.png
+fastlane/test_output
+fastlane/[Pp]rovisioning
+fastlane/[Bb]uild
+fastlane/[Oo]utput
+fastlane/DerivedData
+fastlane/derived_data
+fastlane/screenshots
+fastlane/[Pp]review.html
+
+## Dotenv
+.env.local
+
+## Local Artifacts
+bin/
+tmp/
+
+/Package.resolved
+TunKit/Package.resolved
