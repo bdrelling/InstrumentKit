@@ -3,16 +3,19 @@
 import Foundation
 import NoteKit
 
-public struct Tuning: Codable, Hashable {
+public struct Tuning {
     private static let localizationTableName = "Tunings"
     private static let defaultTuningKey = "standard"
 
     public let localizationKey: String
-    public let locale: Locale
     public let name: String
     public let notes: [Note]
 
-    private init(localizationKey: String, locale: Locale = .current, name: String, notes: [Note]) {
+    /// The locale used to fetch this instance's localized `String` values.
+    /// This property is primarily used for testing and validation.
+    public private(set) var locale: Locale?
+
+    private init(localizationKey: String, locale: Locale?, name: String, notes: [Note]) {
         self.localizationKey = localizationKey
         self.locale = locale
         self.name = name
@@ -29,14 +32,23 @@ public struct Tuning: Codable, Hashable {
         self.init(localizationKey: localizationKey, locale: locale, notes: notes)
     }
 
+    /// Creates an unlocalized and unlocalizable instance, typically for purposes like mocking.
     public init(name: String, notes: [Note]) {
-        self.init(localizationKey: name, name: name, notes: notes)
+        self.init(localizationKey: name, locale: nil, name: name, notes: notes)
     }
 }
 
 // MARK: - Extensions
 
-extension Tuning: Equatable {
+extension Tuning: Codable {
+    enum CodingKeys: String, CodingKey {
+        case localizationKey
+        case name
+        case notes
+    }
+}
+
+extension Tuning: Equatable, Hashable {
     public static func == (lhs: Self, rhs: Self) -> Bool {
         lhs.localizationKey == rhs.localizationKey
             && lhs.notes == rhs.notes

@@ -6,13 +6,16 @@ public struct StringInstrument {
     private static let localizationTableName = "Instruments"
 
     public let localizationKey: String
-    public let locale: Locale
     public let name: String
     public let numberOfStrings: Int
     public let numberOfCourses: Int
     public let tunings: [Tuning]
 
-    private init(localizationKey: String, locale: Locale = .current, name: String, numberOfStrings: Int, numberOfCourses: Int, tunings: [Tuning]) {
+    /// The locale used to fetch this instance's localized `String` values.
+    /// This property is primarily used for testing and validation.
+    public private(set) var locale: Locale?
+
+    private init(localizationKey: String, locale: Locale?, name: String, numberOfStrings: Int, numberOfCourses: Int, tunings: [Tuning]) {
         self.localizationKey = localizationKey
         self.locale = locale
         self.name = name
@@ -27,8 +30,9 @@ public struct StringInstrument {
         self.init(localizationKey: localizationKey, locale: locale, name: name, numberOfStrings: numberOfStrings, numberOfCourses: numberOfCourses, tunings: tunings)
     }
 
+    /// Creates an unlocalized and unlocalizable instance, typically for purposes like mocking.
     public init(name: String, numberOfStrings: Int, numberOfCourses: Int, tunings: [Tuning]) {
-        self.init(localizationKey: name, name: name, numberOfStrings: numberOfStrings, numberOfCourses: numberOfCourses, tunings: tunings)
+        self.init(localizationKey: name, locale: nil, name: name, numberOfStrings: numberOfStrings, numberOfCourses: numberOfCourses, tunings: tunings)
     }
 }
 
@@ -37,7 +41,6 @@ public struct StringInstrument {
 extension StringInstrument: Codable {
     enum CodingKeys: String, CodingKey {
         case localizationKey
-        case locale
         case name
         case numberOfStrings = "strings"
         case numberOfCourses = "courses"
