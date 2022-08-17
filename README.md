@@ -8,6 +8,8 @@
 
 **InstrumentKit** provides type-safe access to localized musical instruments and their tunings.
 
+## Table of Contents
+
 - [Work In Progress](#work-in-progress)
 - [Installation](#installation)
 - [Usage](#usage)
@@ -17,7 +19,7 @@
 
 ## Work In Progress
 
-:warning: This package is very much a work in progress. 
+:warning: This package is very much a work in progress.
 
 For the time being, this package is focused on collecting, validating, and localizing data for **string instruments only**. Once string instruments feel accurate and stable and the library is extremely tested, the plan will be to add brass, keyboards, percussions, and more.
 
@@ -124,7 +126,7 @@ let spanishGuitarTunings: [Tuning] = Tuning.Guitar.allTunings.localized(to: "es"
 
 ## Contributing
 
-Discussions, issues, and pull requests are more than welcome, for development, corrections, and/or localizations. 
+Discussions, issues, and pull requests are more than welcome, for development, corrections, and/or localizations.
 
 If you're providing corrections and/or localizations, please provide as many additional sources as you can for validation in order to help ensure we can get the corrections integrated as quickly as possible.
 
