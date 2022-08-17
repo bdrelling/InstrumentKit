@@ -23,7 +23,7 @@
 
 For the time being, this package is focused on collecting, validating, and localizing data for **string instruments only**. Once string instruments feel accurate and stable and the library is extremely tested, the plan will be to add brass, keyboards, percussions, and more.
 
-In addition, the library currently leverages an internal dependency for musical notation (`NoteKit`), but should be backed by the more accurate `[AudioKit/Tonic](https://github.com/AudioKit/Tonic)` as soon as possible.
+In addition, the library currently leverages an internal dependency for musical notation (`NoteKit`), but should be backed by the more accurate [`AudioKit/Tonic`](https://github.com/AudioKit/Tonic) as soon as possible.
 
 ## Installation
 
