@@ -120,6 +120,18 @@ let spanishInstruments: [StringInstrument] = .allCases.localized(to: "es")
 let spanishGuitarTunings: [Tuning] = Tuning.Guitar.allTunings.localized(to: "es")
 ```
 
+### API
+
+Looking for localized instrument and tuning definitions but don't use Swift? No problem!
+
+All instruments and tunings in this package are _also_ available by making API requests to [instruments.fyi](https://instruments.fyi). You can fetch all instruments, specific instruments, tunings, and more.
+
+Please note: This server behind this API has _very_ low performance and is **NOT** intended to be used at runtime for any reason -- at a certain point, the data should not be changing so frequently. As such, it is **heavily rate-limited**.
+
+Instead, fetch the information you need and store the response, then de-serialize the data for your own application. Or better yet: use the JSON to generate the client-side code you need!
+
+> [instruments.fyi](https://instruments.fyi) is built using [Vapor](https://vapor.codes), a [Server-side Swift](https://www.swift.org/server/) framework. Curious to see how it works? The project can be found at [bdrelling/instruments.fyi](https://github.com/bdrelling/instruments.fyi).
+
 ## Performance
 
 ### Localization
@@ -140,7 +152,7 @@ enum Guitar: Tuning, CaseIterable {
 
 This approach was not taken lightly. Instruments have dozens of commonly applicable tunings, and there are hundreds of instruments. Maintaining a large data set without an easy-to-parse method of analyzing, comparing, and fact-checking that data becomes extremely difficult over time.
 
-`String` parsing of a `Tuning` takes place in the special `init` at the bottom of `Tuning+Definitions.swift`. By making `Tuning` conform to `ExpressibleByStringLiteral`, it allows us to create `CaseIterable` enums that are easy to validate _and_ provide `Tuning` collection and organization functionality out of the box. 
+`String` parsing of a `Tuning` takes place in the special `init` at the bottom of `Tuning+Definitions.swift`. By making `Tuning` conform to `ExpressibleByStringLiteral`, it allows us to create `CaseIterable` enums that are easy to validate _and_ provide `Tuning` collection and organization functionality out of the box.
 
 The logic is simple and very easy to validate: loop through _every `Tuning` in the project_ and if any of our localization keys in any of our supported languages come back with an error of any sort, numerous unit tests in the project will blow up.
 
