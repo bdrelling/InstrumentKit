@@ -12,7 +12,7 @@ public extension Localizable {
     func localized(to languageCode: String) -> Self {
         self.localized(to: .init(identifier: languageCode))
     }
-    
+
     func localized(to supportedLanguage: SupportedLanguage) -> Self {
         self.localized(to: supportedLanguage.rawValue)
     }

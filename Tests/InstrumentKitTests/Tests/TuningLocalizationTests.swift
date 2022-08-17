@@ -30,7 +30,7 @@ final class TuningLocalizationTests: XCTestCase {
         // But the localizations should be different, since Foundation creations an "xx (fixed)" localization.
         XCTAssertNotEqual(english.locale, missing.locale)
     }
-    
+
     func testAllLocalizationsExist() {
         self.validate()
     }
@@ -46,7 +46,7 @@ private extension TuningLocalizationTests {
             XCTAssertFalse(tuning.name.contains(tuning.localizationKey), "Tuning \(tuning) is not properly localized.")
         }
     }
-    
+
     func validate(languageCodes: [String] = SupportedLanguage.allCases.map(\.rawValue)) {
         languageCodes.forEach(self.validate)
     }
