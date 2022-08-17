@@ -30,4 +30,24 @@ final class StringInstrumentLocalizationTests: XCTestCase {
         // But the localizations should be different, since Foundation creations an "xx (fixed)" localization.
         XCTAssertNotEqual(english.locale, missing.locale)
     }
+    
+    func testAllLocalizationsExist() {
+        self.validate()
+    }
+}
+
+// MARK: - Extensions
+
+private extension StringInstrumentLocalizationTests {
+    func validate(languageCode: String) {
+        for instrument in StringInstrument.allCases.localized(to: languageCode) {
+            // The name should not contain the localization key,
+            // which would imply that the name could not be localized.
+            XCTAssertFalse(instrument.name.contains(instrument.localizationKey), "Instrument \(instrument) is not properly localized.")
+        }
+    }
+    
+    func validate(languageCodes: [String] = SupportedLanguage.allCases.map(\.rawValue)) {
+        languageCodes.forEach(self.validate)
+    }
 }
