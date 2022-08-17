@@ -84,7 +84,13 @@ let instruments: [StringInstrument] = .allCases
 
 > _Collections provide an `.allCases` convenience extension, so you don't have to write out the name of the element each time._
 
-Get _all_ tunings for a guitar, using two different methods.
+Get a specific tuning for an instrument.
+
+```swift
+let guitarStandard: Tuning = Tuning.Guitar.standard.rawValue
+```
+
+Get _all_ tunings for an instrument.
 
 ```swift
 let guitarTunings: [Tuning] = StringInstrument.guitar.tunings
@@ -92,12 +98,6 @@ let guitarTunings: [Tuning] = Tuning.Guitar.allTunings
 ```
 
 > _`allTunings` is provided as a convenience for `allCases.map(\.rawValue)`._
-
-Get the standard tuning for a guitar.
-
-```swift
-let guitarStandard: Tuning = Tuning.Guitar.standard
-```
 
 Get _all_ tunings for _all_ string instruments. _(Note: This method is primarily used for testing and validation.)_
 
