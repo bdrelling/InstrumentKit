@@ -9,7 +9,6 @@ import Foundation
 public struct PitchClass: Codable, Equatable, Hashable {
     public let name: String
     public let index: Int
-    public let frequency: Float
 
     public var isSharp: Bool {
         switch self {
@@ -37,10 +36,9 @@ public struct PitchClass: Codable, Equatable, Hashable {
         }
     }
 
-    private init(_ name: String, index: Int, frequency: Float) {
+    private init(_ name: String, index: Int) {
         self.name = name
         self.index = index
-        self.frequency = frequency
     }
 }
 
@@ -104,7 +102,6 @@ extension PitchClass: Comparable {
 
 extension PitchClass: CaseIterable {
     public static let allCases: [Self] = [.c, .cSharp, .d, .dSharp, .e, .f, .fSharp, .g, .gSharp, .a, .aSharp, .b]
-    public static let allFrequencies = Self.allCases.map(\.frequency)
 }
 
 extension PitchClass: Identifiable {
@@ -186,18 +183,18 @@ public extension PitchClass {
     /// This is a ratio of 2^1/12 (approximately 1.05946), or 100 cents, and is 11.7 cents narrower than the 16:15 ratio (its most common form in just intonation, discussed below).
 //    static let intervalRatio: Float = 1.059463094359
 
-    static let c: Self = .init("C", index: 0, frequency: 16.35)
-    static let cSharp: Self = .init("C#", index: 1, frequency: 17.32)
-    static let d: Self = .init("D", index: 2, frequency: 18.35)
-    static let dSharp: Self = .init("D#", index: 3, frequency: 19.45)
-    static let e: Self = .init("E", index: 4, frequency: 20.60)
-    static let f: Self = .init("F", index: 5, frequency: 21.83)
-    static let fSharp: Self = .init("F#", index: 6, frequency: 23.12)
-    static let g: Self = .init("G", index: 7, frequency: 24.50)
-    static let gSharp: Self = .init("G#", index: 8, frequency: 25.96)
-    static let a: Self = .init("A", index: 9, frequency: 27.50)
-    static let aSharp: Self = .init("A#", index: 10, frequency: 29.14)
-    static let b: Self = .init("B", index: 11, frequency: 30.87)
+    static let c: Self = .init("C", index: 0)
+    static let cSharp: Self = .init("C#", index: 1)
+    static let d: Self = .init("D", index: 2)
+    static let dSharp: Self = .init("D#", index: 3)
+    static let e: Self = .init("E", index: 4)
+    static let f: Self = .init("F", index: 5)
+    static let fSharp: Self = .init("F#", index: 6)
+    static let g: Self = .init("G", index: 7)
+    static let gSharp: Self = .init("G#", index: 8)
+    static let a: Self = .init("A", index: 9)
+    static let aSharp: Self = .init("A#", index: 10)
+    static let b: Self = .init("B", index: 11)
 }
 
 // Engineering Toolbox
