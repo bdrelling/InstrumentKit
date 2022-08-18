@@ -102,7 +102,6 @@ extension PitchClass: Comparable {
 
 extension PitchClass: CaseIterable {
     public static let allCases: [Self] = [.c, .cSharp, .d, .dSharp, .e, .f, .fSharp, .g, .gSharp, .a, .aSharp, .b]
-    public static let allFrequencies = Self.allCases.map(\.frequency)
 }
 
 extension PitchClass: Identifiable {
