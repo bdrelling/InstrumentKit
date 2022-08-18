@@ -1,4 +1,4 @@
-// swift-tools-version: 5.6
+// swift-tools-version:5.3
 
 import PackageDescription
 
@@ -6,10 +6,10 @@ let package = Package(
     name: "InstrumentKit",
     defaultLocalization: "en",
     platforms: [
-        .iOS(.v14),
-        .macOS(.v11),
-        .tvOS(.v14),
-        .watchOS(.v7),
+        .iOS(.v11),
+        .macOS(.v10_13),
+        .tvOS(.v11),
+        .watchOS(.v4),
     ],
     products: [
         .library(name: "Frequency", targets: ["Frequency"]),
@@ -17,6 +17,7 @@ let package = Package(
         .library(name: "NoteKit", targets: ["NoteKit"]),
     ],
     dependencies: [
+        .package(url: "https://github.com/AudioKit/Tonic", .upToNextMinor(from: "1.0.4")),
         // Development
         .package(url: "https://github.com/swift-kipple/Tools", .upToNextMinor(from: "0.2.3")),
     ],
