@@ -6,14 +6,22 @@ import Tonic
 // MARK: - Supporting Types
 
 extension Note {
-    func interval(to otherNote: Note) -> Int {
-        let semitones = Int(self.semitones(to: otherNote))
+    var isWithinAuditoryRange: Bool {
+        true
+    }
+}
 
-        if self.pitch < otherNote.pitch {
-            return -semitones
-        } else {
-            return semitones
-        }
+extension Note {
+    func interval(to otherNote: Note) -> Int {
+        let semitones = self.semitones(to: otherNote)
+        
+        return 0
+
+//        if self.pitch < otherNote.pitch {
+//            return -semitones
+//        } else {
+//            return semitones
+//        }
     }
 }
 

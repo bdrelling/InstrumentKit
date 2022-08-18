@@ -18,19 +18,6 @@ public extension NoteMath {
     static let precision: Float = 100.0
 }
 
-// MARK: - Supporting Types
-
-public enum NoteMathError: LocalizedError {
-    case invalidFrequency(Float)
-
-    public var errorDescription: String? {
-        switch self {
-        case let .invalidFrequency(frequency):
-            return "Frequency '\(frequency)' is invalid."
-        }
-    }
-}
-
 // MARK: - Extensions
 
 public extension NoteMath {

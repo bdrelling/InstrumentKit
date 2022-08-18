@@ -6,6 +6,12 @@ import XCTest
 
 final class NoteMathTonicTests: XCTestCase {
     // MARK: Interval
+    
+    func testTonic() {
+let note = Note(.A, octave: 100)
+note.semitones(to: .A)
+//        let pitch = Pitch(intValue: 50000)
+    }
 
     func testIntervalForNoteSucceeds() {
         // A-1 to A9
