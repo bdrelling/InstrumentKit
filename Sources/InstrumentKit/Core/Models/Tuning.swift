@@ -40,6 +40,12 @@ public struct Tuning {
 
 // MARK: - Extensions
 
+public extension Tuning {
+    func closestNote(to frequency: Float) -> Note? {
+        self.notes.closest(to: frequency)
+    }
+}
+
 extension Tuning: Codable {
     enum CodingKeys: String, CodingKey {
         case localizationKey
@@ -79,12 +85,6 @@ extension Tuning: CustomStringConvertible {
     }
 }
 
-public extension Tuning {
-    func closestNote(to frequency: Float) -> Note? {
-        self.notes.closest(to: frequency)
-    }
-}
-
 extension Tuning: Localizable {
     public func localized(to locale: Locale) -> Self {
         .init(
@@ -92,6 +92,29 @@ extension Tuning: Localizable {
             locale: locale,
             notes: self.notes
         )
+    }
+}
+
+extension Tuning: ExpressibleByStringLiteral, ExpressibleByStringInterpolation {
+    /// Initializes a `Tuning` using a `String` with the format `<localizationKey>: <notes>`.
+    /// Example: `"standard: E2 A2 D3 G3 B3 E4"` defines a standard guitar tuning.
+    public init(stringLiteral: String) {
+        let components = stringLiteral.split(separator: ":")
+
+        // Unless we have exactly two components, return an empty "error" tuning to indicate a failure.
+        guard components.count == 2 else {
+            // We add the stringLiteral value to the name to help identify the failure in tests.
+            self.init(localizationKey: "error (\(stringLiteral))", notes: [])
+            return
+        }
+
+        // Our first component is the localization key.
+        let localizationKey = String(components[0])
+
+        // Our second component is the array of notes.
+        let notes = components[1].trimmingCharacters(in: .whitespaces)
+
+        self.init(localizationKey: localizationKey, notes: .init(rawValue: notes))
     }
 }
 
