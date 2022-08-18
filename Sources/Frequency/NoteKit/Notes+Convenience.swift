@@ -1,7 +1,9 @@
 // Copyright © 2022 Brian Drelling. All rights reserved.
 
+import NoteKit
+
 public extension Array where Element == Note {
-    func closest(to frequency: Float) -> Note? {
+    func closestToFrequency(_ frequency: Float) -> Note? {
         guard frequency > 0 else {
             return nil
         }
@@ -37,6 +39,6 @@ public extension Array where Element == Note {
             return nil
         }
 
-        return self.closest(to: note.frequency)
+        return self.closestToFrequency(note.frequency)
     }
 }

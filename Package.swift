@@ -12,6 +12,7 @@ let package = Package(
         .watchOS(.v7),
     ],
     products: [
+        .library(name: "Frequency", targets: ["Frequency"]),
         .library(name: "InstrumentKit", targets: ["InstrumentKit"]),
         .library(name: "NoteKit", targets: ["NoteKit"]),
     ],
@@ -21,6 +22,12 @@ let package = Package(
     ],
     targets: [
         // Product Targets
+        .target(
+            name: "Frequency",
+            dependencies: [
+                .target(name: "NoteKit"),
+            ]
+        ),
         .target(
             name: "InstrumentKit",
             dependencies: [
@@ -35,6 +42,13 @@ let package = Package(
             dependencies: []
         ),
         // Test Targets
+        .testTarget(
+            name: "FrequencyTests",
+            dependencies: [
+                .target(name: "Frequency"),
+                .target(name: "NoteKit"),
+            ]
+        ),
         .testTarget(
             name: "InstrumentKitTests",
             dependencies: [

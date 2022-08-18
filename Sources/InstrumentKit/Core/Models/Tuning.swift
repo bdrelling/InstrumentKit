@@ -40,12 +40,6 @@ public struct Tuning {
 
 // MARK: - Extensions
 
-public extension Tuning {
-    func closestNote(to frequency: Float) -> Note? {
-        self.notes.closest(to: frequency)
-    }
-}
-
 extension Tuning: Codable {
     enum CodingKeys: String, CodingKey {
         case localizationKey

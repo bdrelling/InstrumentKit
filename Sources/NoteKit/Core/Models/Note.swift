@@ -3,22 +3,25 @@
 import Foundation
 
 public struct Note: Codable, Equatable, Hashable {
-    public let noteClass: NoteClass
-    public let octave: Octave
-    public let frequency: Float
+    public let pitchClass: PitchClass
+    public let octave: Int
 
-    public init(_ noteClass: NoteClass, octave: Octave, frequency: Float? = nil) {
-        self.noteClass = noteClass
+    public init(_ pitchClass: PitchClass, octave: Int) {
+        self.pitchClass = pitchClass
         self.octave = octave
-        self.frequency = frequency ?? NoteMath.frequencyForNote(noteClass, octave: octave)
     }
+}
 
-    public init(_ noteClass: NoteClass, octave: Int, frequency: Float? = nil) {
-        self.init(
-            noteClass,
-            octave: .init(octave),
-            frequency: frequency
-        )
+// MARK: - Supporting Types
+
+public enum NoteError: LocalizedError {
+    case invalidOctave(String)
+
+    public var errorDescription: String? {
+        switch self {
+        case let .invalidOctave(octave):
+            return "Invalid octave '\(octave)'."
+        }
     }
 }
 
@@ -26,33 +29,43 @@ public struct Note: Codable, Equatable, Hashable {
 
 public extension Note {
     func octaveLower() -> Self {
-        .init(self.noteClass, octave: self.octave - 1)
+        .init(self.pitchClass, octave: self.octave - 1)
     }
 
     func octaveHigher() -> Self {
-        .init(self.noteClass, octave: self.octave + 1)
+        .init(self.pitchClass, octave: self.octave + 1)
     }
 
     func halfStepLower() -> Self {
-        .init(self.noteClass - 1, octave: self.octave)
+        .init(self.pitchClass - 1, octave: self.octave)
     }
 
     func halfStepHigher() -> Self {
-        .init(self.noteClass + 1, octave: self.octave)
+        .init(self.pitchClass + 1, octave: self.octave)
     }
 
     func wholeStepLower() -> Self {
-        .init(self.noteClass - 2, octave: self.octave)
+        .init(self.pitchClass - 2, octave: self.octave)
     }
 
     func wholeStepHigher() -> Self {
-        .init(self.noteClass + 2, octave: self.octave)
+        .init(self.pitchClass + 2, octave: self.octave)
+    }
+}
+
+extension Note: Comparable {
+    public static func < (lhs: Self, rhs: Self) -> Bool {
+        if lhs.octave == rhs.octave {
+            return lhs.pitchClass < rhs.pitchClass
+        } else {
+            return lhs.octave < rhs.octave
+        }
     }
 }
 
 extension Note: RawRepresentable {
     public var rawValue: String {
-        "\(self.noteClass.name)\(self.octave.rawValue)"
+        "\(self.pitchClass.name)\(self.octave)"
     }
 
     public init?(rawValue: String) {
@@ -61,18 +74,15 @@ extension Note: RawRepresentable {
 
     public init(text: String) throws {
         let semitoneName = try text.match(for: "[A-Za-z#]{1,2}")
-        let noteClass = try NoteClass(name: semitoneName)
+        let pitchClass = try PitchClass(name: semitoneName)
 
         let octaveString = try text.match(for: "[0-9]{1,2}")
-        let octave = try Octave(rawValue: octaveString)
 
-        self.init(noteClass, octave: octave)
-    }
-}
+        guard let octave = Int(octaveString) else {
+            throw NoteError.invalidOctave(octaveString)
+        }
 
-extension Note: Comparable {
-    public static func < (lhs: Note, rhs: Note) -> Bool {
-        lhs.frequency < rhs.frequency
+        self.init(pitchClass, octave: octave)
     }
 }
 
@@ -84,7 +94,7 @@ extension Note: Identifiable {
 
 extension Note: CustomStringConvertible {
     public var description: String {
-        "\(self.noteClass.name)\(self.octave)"
+        "\(self.pitchClass.name)\(self.octave)"
     }
 }
 
@@ -98,7 +108,9 @@ public extension Array where Element == Note {
             .split(separator: " ")
             .compactMap { Note(rawValue: String($0)) }
     }
+}
 
+public extension Array where Element == Note {
     var lowest: Note? {
         self.min()
     }
@@ -197,12 +209,12 @@ public extension Note {
 
 public extension Note {
     // https://en.wikipedia.org/wiki/A440_(pitch_standard)
-    static let standard: Self = .init(.a, octave: 4, frequency: 440)
-    static let lowest: Self = .init(.c, octave: 0, frequency: NoteClass.c.frequency)
-    static let highest: Self = .init(.b, octave: 8, frequency: 7920.13)
+    static let standard: Self = .init(.a, octave: 4)
+    static let lowest: Self = .init(.c, octave: 0)
+    static let highest: Self = .init(.b, octave: 8)
 
     static let middleA: Self = .standard
-    static let middleC: Self = .init(.c, octave: 4, frequency: 261.63)
+    static let middleC: Self = .init(.c, octave: 4)
 
     static let inactiveNoteSymbol = "-"
 }
