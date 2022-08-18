@@ -80,6 +80,4 @@ final class PitchClassTests: XCTestCase {
         try XCTAssertEqual(PitchClass(name: "B♭"), .aSharp)
         try XCTAssertEqual(PitchClass(name: "B"), .b)
     }
-
-    func testPitchClassMathSucceeds() {}
 }

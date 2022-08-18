@@ -14,7 +14,6 @@ let package = Package(
     products: [
         .library(name: "Frequency", targets: ["Frequency"]),
         .library(name: "InstrumentKit", targets: ["InstrumentKit"]),
-        .library(name: "NoteKit", targets: ["NoteKit"]),
     ],
     dependencies: [
         .package(url: "https://github.com/AudioKit/Tonic", .upToNextMinor(from: "1.0.4")),
@@ -26,28 +25,23 @@ let package = Package(
         .target(
             name: "Frequency",
             dependencies: [
-                .target(name: "NoteKit"),
+                .product(name: "Tonic", package: "Tonic"),
             ]
         ),
         .target(
             name: "InstrumentKit",
             dependencies: [
-                .target(name: "NoteKit"),
+                .product(name: "Tonic", package: "Tonic"),
             ],
             resources: [
                 .process("Resources"),
             ]
-        ),
-        .target(
-            name: "NoteKit",
-            dependencies: []
         ),
         // Test Targets
         .testTarget(
             name: "FrequencyTests",
             dependencies: [
                 .target(name: "Frequency"),
-                .target(name: "NoteKit"),
             ]
         ),
         .testTarget(
@@ -57,9 +51,9 @@ let package = Package(
             ]
         ),
         .testTarget(
-            name: "NoteKitTests",
+            name: "TonicTests",
             dependencies: [
-                .target(name: "NoteKit"),
+                .product(name: "Tonic", package: "Tonic"),
             ]
         ),
     ]
