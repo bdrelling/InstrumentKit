@@ -5,14 +5,27 @@ import Tonic
 
 // MARK: - Supporting Types
 
+extension Note {
+    func interval(to otherNote: Note) -> Int {
+        let semitones = Int(self.semitones(to: otherNote))
+
+        if self.pitch < otherNote.pitch {
+            return -semitones
+        } else {
+            return semitones
+        }
+    }
+}
+
 public extension NoteMath {
     // MARK: Half Step Interval
 
     static func interval(from fromNote: Note, to toNote: Note) -> Int {
-        var halfSteps: Int = fromNote.pitchClass.index - toNote.pitchClass.index
-        halfSteps += Self.semitonesPerOctave * (fromNote.octave - toNote.octave)
+        fromNote.interval(to: toNote)
+//        var halfSteps: Int = fromNote.noteClass.intValue - toNote.noteClass.intValue
+//        halfSteps += Self.semitonesPerOctave * (fromNote.octave - toNote.octave)
 
-        return halfSteps
+//        return halfSteps
     }
 
     static func standardInterval(for note: Note) -> Int {
@@ -30,8 +43,8 @@ public extension NoteMath {
         return self.frequencyForInterval(interval)
     }
 
-    static func frequencyForPitchClass(_ pitchClass: PitchClass, octave: Int) -> Float {
-        self.frequencyForNote(.init(pitchClass, octave: octave))
+    static func frequencyForNoteClass(_ noteClass: NoteClass, octave: Int) -> Float {
+        self.frequencyForNote(.init(noteClass, octave: octave))
     }
 
     // MARK: Cents
@@ -46,37 +59,37 @@ public extension NoteMath {
 
     // MARK: Note Class
 
-    static func pitchClassForInterval(_ interval: Int) -> PitchClass {
+    static func noteClassForInterval(_ interval: Int) -> NoteClass {
         // First, get the interval of the standard note from the lowest note, C0.
         let baseInterval = self.baseInterval(for: .standard)
 
         // Next, add the relative interval we're calculating to the standard note's inteval.
-        // This will give us the resultant PitchClass's interval from the lowest note, C0.
+        // This will give us the resultant NoteClass's interval from the lowest note, C0.
         let resultInterval = baseInterval + interval
 
-        // Finally, determine the index of the PitchClass in its array using the remainder operation.
-        let pitchClassIndex = resultInterval % Self.semitonesPerOctave
+        // Finally, determine the index of the NoteClass in its array using the remainder operation.
+        let noteClassIndex = resultInterval % Self.semitonesPerOctave
 
-        guard pitchClassIndex >= 0 else {
-            let reversedIndex = abs(pitchClassIndex)
-            return PitchClass.allCases.reversed()[reversedIndex]
+        guard noteClassIndex >= 0 else {
+            let reversedIndex = abs(noteClassIndex)
+            return NoteClass.allCasesInStandardOctave.reversed()[reversedIndex]
         }
 
-        return PitchClass.allCases[pitchClassIndex]
+        return NoteClass.allCasesInStandardOctave[noteClassIndex]
     }
 
-    static func pitchClassForFrequency(_ frequency: Float) throws -> PitchClass {
+    static func noteClassForFrequency(_ frequency: Float) throws -> NoteClass {
         let interval = try self.standardIntervalForFrequency(frequency)
-        return self.pitchClassForInterval(interval)
+        return self.noteClassForInterval(interval)
     }
 
     // MARK: Note
 
     static func noteForInterval(_ interval: Int) -> Note {
-        let pitchClass = self.pitchClassForInterval(interval)
+        let noteClass = self.noteClassForInterval(interval)
         let octave = self.octaveForInterval(interval)
 
-        return .init(pitchClass, octave: octave)
+        return .init(noteClass, octave: octave)
     }
 
     static func noteForFrequency(_ frequency: Float) throws -> Note {
