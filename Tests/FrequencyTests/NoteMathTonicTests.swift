@@ -5,13 +5,11 @@ import Tonic
 import XCTest
 
 final class NoteMathTonicTests: XCTestCase {
-    // MARK: Interval
-    
     func testTonic() {
-let note = Note(.A, octave: 100)
-note.semitones(to: .A)
-//        let pitch = Pitch(intValue: 50000)
+        let note = Note(.A, octave: 9).pitch
     }
+
+    // MARK: Interval
 
     func testIntervalForNoteSucceeds() {
         // A-1 to A9
