@@ -2,9 +2,11 @@
 
 import Foundation
 
-// Naming this struct was hard.
-// See: https://music.stackexchange.com/questions/32087/terminology-note-and-note-class
-public struct NoteClass: Codable, Equatable, Hashable {
+// Naming is hard.
+// The following resources can help explain why:
+//   - https://en.wikipedia.org/wiki/Pitch_class
+//   - https://music.stackexchange.com/questions/32087/terminology-note-and-note-class
+public struct PitchClass: Codable, Equatable, Hashable {
     public let name: String
     public let index: Int
     public let frequency: Float
@@ -44,23 +46,23 @@ public struct NoteClass: Codable, Equatable, Hashable {
 
 // MARK: - Supporting Types
 
-public enum NoteClassError: LocalizedError {
+public enum PitchClassError: LocalizedError {
     case invalidName(String)
     case invalidSymbol(String)
 
     public var errorDescription: String? {
         switch self {
         case let .invalidName(name):
-            return "Invalid noteClass name '\(name)'."
+            return "Invalid pitchClass name '\(name)'."
         case let .invalidSymbol(symbol):
-            return "Invalid noteClass symbol '\(symbol)'."
+            return "Invalid pitchClass symbol '\(symbol)'."
         }
     }
 }
 
 // MARK: - Extensions
 
-public extension NoteClass {
+public extension PitchClass {
     func previous() -> Self? {
         Self.allCases.before(self, loop: true)
     }
@@ -94,49 +96,55 @@ public extension NoteClass {
     }
 }
 
-extension NoteClass: CaseIterable {
+extension PitchClass: Comparable {
+    public static func < (lhs: Self, rhs: Self) -> Bool {
+        lhs.index < rhs.index
+    }
+}
+
+extension PitchClass: CaseIterable {
     public static let allCases: [Self] = [.c, .cSharp, .d, .dSharp, .e, .f, .fSharp, .g, .gSharp, .a, .aSharp, .b]
     public static let allFrequencies = Self.allCases.map(\.frequency)
 }
 
-extension NoteClass: Identifiable {
+extension PitchClass: Identifiable {
     public var id: RawValue {
         self.rawValue
     }
 }
 
-extension NoteClass: CustomStringConvertible {
+extension PitchClass: CustomStringConvertible {
     public var description: String {
         self.name
     }
 }
 
-extension NoteClass: RawRepresentable {
+extension PitchClass: RawRepresentable {
     public var rawValue: Int {
         self.index
     }
 
     public init(rawValue: Int) {
-        var index = rawValue % NoteClass.allCases.count
+        var index = rawValue % PitchClass.allCases.count
 
         // If the index is negative, we need to subtract the index from the count to get the equivalent positive index.
         if index < 0 {
-            index = NoteClass.allCases.count - abs(index)
+            index = PitchClass.allCases.count - abs(index)
         }
 
-        self = NoteClass.allCases[index]
+        self = PitchClass.allCases[index]
     }
 }
 
-public extension NoteClass {
+public extension PitchClass {
     init(name: String) throws {
         guard name.count >= 1 else {
-            throw NoteClassError.invalidName(name)
+            throw PitchClassError.invalidName(name)
         }
 
         // Get the first character and uppercase it.
         let letter = name.prefix(1).uppercased()
-        var firstMatch: NoteClass?
+        var firstMatch: PitchClass?
 
         if name.count == 1 {
             // If our name is a single character, return the first match by the letter.
@@ -144,7 +152,7 @@ public extension NoteClass {
         } else if name.count == 2 {
             // If our name is two characters, we need to get the symbol and match both.
 
-            // Normalize the name to ensure it will match the noteClass names.
+            // Normalize the name to ensure it will match the pitchClass names.
             // This allows us to pass in any valid symbols: #, ♯, b, ♭
             let symbol = name.suffix(1)
                 .replacingOccurrences(of: "♯", with: "#")
@@ -158,23 +166,23 @@ public extension NoteClass {
             case "b":
                 firstMatch = Self.allCases.first(where: { $0.nameWithFlats == stylizedName })
             default:
-                throw NoteClassError.invalidSymbol(symbol)
+                throw PitchClassError.invalidSymbol(symbol)
             }
         }
 
-        if let noteClass = firstMatch {
-            self = noteClass
+        if let pitchClass = firstMatch {
+            self = pitchClass
         } else {
-            throw NoteClassError.invalidName(name)
+            throw PitchClassError.invalidName(name)
         }
     }
 }
 
 // MARK: - Convenience
 
-public extension NoteClass {
-    /// https://en.wikipedia.org/wiki/noteClass#Equal_temperament
-    /// 12-tone equal temperament is a form of meantone tuning in which the diatonic and chromatic noteClasses are exactly the same, because its circle of fifths has no break. Each noteClass is equal to one twelfth of an octave.
+public extension PitchClass {
+    /// https://en.wikipedia.org/wiki/pitchClass#Equal_temperament
+    /// 12-tone equal temperament is a form of meantone tuning in which the diatonic and chromatic pitchClasses are exactly the same, because its circle of fifths has no break. Each pitchClass is equal to one twelfth of an octave.
     /// This is a ratio of 2^1/12 (approximately 1.05946), or 100 cents, and is 11.7 cents narrower than the 16:15 ratio (its most common form in just intonation, discussed below).
 //    static let intervalRatio: Float = 1.059463094359
 

@@ -2,11 +2,11 @@
 
 public extension Note {
     func displayName(for displayMode: NoteDisplayMode) -> String {
-        guard self.noteClass.isSharp else {
+        guard self.pitchClass.isSharp else {
             return self.rawValue
         }
 
-        return "\(self.noteClass.displayName(for: displayMode))\(self.octave)"
+        return "\(self.pitchClass.displayName(for: displayMode))\(self.octave)"
     }
 }
 
@@ -20,15 +20,15 @@ private extension Note {
         for displayMode: NoteDisplayMode,
         fontSize: CGFloat
     ) -> AttributedString {
-        let nameWithSharps = AttributedString(self.noteClass.displayName(for: .sharps))
+        let nameWithSharps = AttributedString(self.pitchClass.displayName(for: .sharps))
 
         var octaveAttributes = AttributeContainer()
         octaveAttributes.font = Font.system(size: fontSize * 0.65)
         octaveAttributes.baselineOffset = fontSize * -0.25
         let octave = AttributedString("\(self.octave)", attributes: octaveAttributes)
 
-        // Unless our noteClass is sharp, we don't need to continue.
-        guard self.noteClass.isSharp else {
+        // Unless our pitchClass is sharp, we don't need to continue.
+        guard self.pitchClass.isSharp else {
             return nameWithSharps + octave
         }
 
@@ -36,7 +36,7 @@ private extension Note {
         case .sharps:
             return nameWithSharps + octave
         case .flats:
-            let nameWithFlats = AttributedString(self.noteClass.displayName(for: .flats))
+            let nameWithFlats = AttributedString(self.pitchClass.displayName(for: .flats))
             return nameWithFlats + octave
         }
     }

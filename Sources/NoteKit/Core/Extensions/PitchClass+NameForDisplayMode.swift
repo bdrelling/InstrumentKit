@@ -1,6 +1,6 @@
 // Copyright © 2022 Brian Drelling. All rights reserved.
 
-public extension NoteClass {
+public extension PitchClass {
     func displayName(for displayMode: NoteDisplayMode) -> String {
         guard self.isSharp else {
             return self.name
@@ -15,7 +15,7 @@ public extension NoteClass {
     }
 }
 
-extension NoteClass {
+extension PitchClass {
     var displayNameWithFlats: String {
         self.nameWithFlats.replacingOccurrences(of: "b", with: "♭")
     }

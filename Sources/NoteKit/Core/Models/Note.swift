@@ -3,11 +3,11 @@
 import Foundation
 
 public struct Note: Codable, Equatable, Hashable {
-    public let noteClass: NoteClass
+    public let pitchClass: PitchClass
     public let octave: Int
 
-    public init(_ noteClass: NoteClass, octave: Int) {
-        self.noteClass = noteClass
+    public init(_ pitchClass: PitchClass, octave: Int) {
+        self.pitchClass = pitchClass
         self.octave = octave
     }
 }
@@ -29,33 +29,43 @@ public enum NoteError: LocalizedError {
 
 public extension Note {
     func octaveLower() -> Self {
-        .init(self.noteClass, octave: self.octave - 1)
+        .init(self.pitchClass, octave: self.octave - 1)
     }
 
     func octaveHigher() -> Self {
-        .init(self.noteClass, octave: self.octave + 1)
+        .init(self.pitchClass, octave: self.octave + 1)
     }
 
     func halfStepLower() -> Self {
-        .init(self.noteClass - 1, octave: self.octave)
+        .init(self.pitchClass - 1, octave: self.octave)
     }
 
     func halfStepHigher() -> Self {
-        .init(self.noteClass + 1, octave: self.octave)
+        .init(self.pitchClass + 1, octave: self.octave)
     }
 
     func wholeStepLower() -> Self {
-        .init(self.noteClass - 2, octave: self.octave)
+        .init(self.pitchClass - 2, octave: self.octave)
     }
 
     func wholeStepHigher() -> Self {
-        .init(self.noteClass + 2, octave: self.octave)
+        .init(self.pitchClass + 2, octave: self.octave)
+    }
+}
+
+extension Note: Comparable {
+    public static func < (lhs: Self, rhs: Self) -> Bool {
+        if lhs.octave == rhs.octave {
+            return lhs.pitchClass < rhs.pitchClass
+        } else {
+            return lhs.octave < rhs.octave
+        }
     }
 }
 
 extension Note: RawRepresentable {
     public var rawValue: String {
-        "\(self.noteClass.name)\(self.octave)"
+        "\(self.pitchClass.name)\(self.octave)"
     }
 
     public init?(rawValue: String) {
@@ -64,7 +74,7 @@ extension Note: RawRepresentable {
 
     public init(text: String) throws {
         let semitoneName = try text.match(for: "[A-Za-z#]{1,2}")
-        let noteClass = try NoteClass(name: semitoneName)
+        let pitchClass = try PitchClass(name: semitoneName)
 
         let octaveString = try text.match(for: "[0-9]{1,2}")
 
@@ -72,7 +82,7 @@ extension Note: RawRepresentable {
             throw NoteError.invalidOctave(octaveString)
         }
 
-        self.init(noteClass, octave: octave)
+        self.init(pitchClass, octave: octave)
     }
 }
 
@@ -84,7 +94,7 @@ extension Note: Identifiable {
 
 extension Note: CustomStringConvertible {
     public var description: String {
-        "\(self.noteClass.name)\(self.octave)"
+        "\(self.pitchClass.name)\(self.octave)"
     }
 }
 
@@ -97,6 +107,16 @@ public extension Array where Element == Note {
         self = rawValue
             .split(separator: " ")
             .compactMap { Note(rawValue: String($0)) }
+    }
+}
+
+public extension Array where Element == Note {
+    var lowest: Note? {
+        self.min()
+    }
+
+    var highest: Note? {
+        self.max()
     }
 }
 

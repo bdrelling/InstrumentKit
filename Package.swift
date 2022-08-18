@@ -46,6 +46,7 @@ let package = Package(
             name: "FrequencyTests",
             dependencies: [
                 .target(name: "Frequency"),
+                .target(name: "NoteKit"),
             ]
         ),
         .testTarget(
