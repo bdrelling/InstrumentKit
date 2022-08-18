@@ -1,5 +1,6 @@
 // Copyright © 2022 Brian Drelling. All rights reserved.
 
+import Frequency
 import NoteKit
 import XCTest
 
@@ -89,6 +90,23 @@ final class NoteMathTests: XCTestCase {
         XCTAssertEqual(notes.closest(to: -100), nil)
     }
 
+    // MARK: Tuning
+
+    #warning("Update, but just remove the InstrumentKit dependency.")
+//    func testGuitarStandardTuning() {
+//        let tuning: Tuning = .Guitar.standard.rawValue
+//
+//        let frequencies = tuning.notes.map(\.frequency)
+//        XCTAssertEqual(frequencies, [
+//            82.41, // E2
+//            110.0, // A2
+//            146.83, // D3
+//            196.0, // G3
+//            246.94, // B3
+//            329.63, // E4
+//        ])
+//    }
+
     // MARK: Outliers
 
     func testFirstNegativeOctave() {
@@ -136,10 +154,10 @@ final class NoteMathTests: XCTestCase {
         let lowNotes = NoteClass.allCases.map { Note($0, octave: -100) }
         let highNotes = NoteClass.allCases.map { Note($0, octave: 100) }
 
-        XCTAssertEqual(lowNotes.count, NoteClass.count)
+        XCTAssertEqual(lowNotes.count, NoteMath.semitonesPerOctave)
         XCTAssertEqual(lowNotes.map(\.noteClass), NoteClass.allCases)
 
-        XCTAssertEqual(highNotes.count, NoteClass.count)
+        XCTAssertEqual(highNotes.count, NoteMath.semitonesPerOctave)
         XCTAssertEqual(highNotes.map(\.noteClass), NoteClass.allCases)
     }
 }

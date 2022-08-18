@@ -1,6 +1,16 @@
 // Copyright © 2022 Brian Drelling. All rights reserved.
 
+import NoteKit
+
 public extension Array where Element == Note {
+    var lowest: Note? {
+        self.min()
+    }
+
+    var highest: Note? {
+        self.max()
+    }
+
     func closest(to frequency: Float) -> Note? {
         guard frequency > 0 else {
             return nil

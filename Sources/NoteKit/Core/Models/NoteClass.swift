@@ -173,12 +173,6 @@ public extension NoteClass {
 // MARK: - Convenience
 
 public extension NoteClass {
-    // The total number of semitones in an octave.
-    // This value should always be 12, but we'll calculate it from the array count for good measure.
-    // To avoid using the array count every time we need it, which will be quite often with music math calculations,
-    // we'll store this as a constant.
-    static let count: Int = Self.allCases.count
-
     /// https://en.wikipedia.org/wiki/noteClass#Equal_temperament
     /// 12-tone equal temperament is a form of meantone tuning in which the diatonic and chromatic noteClasses are exactly the same, because its circle of fifths has no break. Each noteClass is equal to one twelfth of an octave.
     /// This is a ratio of 2^1/12 (approximately 1.05946), or 100 cents, and is 11.7 cents narrower than the 16:15 ratio (its most common form in just intonation, discussed below).

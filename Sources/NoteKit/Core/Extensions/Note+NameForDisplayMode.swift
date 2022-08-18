@@ -6,7 +6,7 @@ public extension Note {
             return self.rawValue
         }
 
-        return "\(self.noteClass.displayName(for: displayMode))\(self.octave.rawValue)"
+        return "\(self.noteClass.displayName(for: displayMode))\(self.octave)"
     }
 }
 
@@ -25,7 +25,7 @@ private extension Note {
         var octaveAttributes = AttributeContainer()
         octaveAttributes.font = Font.system(size: fontSize * 0.65)
         octaveAttributes.baselineOffset = fontSize * -0.25
-        let octave = AttributedString("\(self.octave.rawValue)", attributes: octaveAttributes)
+        let octave = AttributedString("\(self.octave)", attributes: octaveAttributes)
 
         // Unless our noteClass is sharp, we don't need to continue.
         guard self.noteClass.isSharp else {

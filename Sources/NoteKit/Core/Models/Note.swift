@@ -4,21 +4,24 @@ import Foundation
 
 public struct Note: Codable, Equatable, Hashable {
     public let noteClass: NoteClass
-    public let octave: Octave
-    public let frequency: Float
+    public let octave: Int
 
-    public init(_ noteClass: NoteClass, octave: Octave, frequency: Float? = nil) {
+    public init(_ noteClass: NoteClass, octave: Int) {
         self.noteClass = noteClass
         self.octave = octave
-        self.frequency = frequency ?? NoteMath.frequencyForNote(noteClass, octave: octave)
     }
+}
 
-    public init(_ noteClass: NoteClass, octave: Int, frequency: Float? = nil) {
-        self.init(
-            noteClass,
-            octave: .init(octave),
-            frequency: frequency
-        )
+// MARK: - Supporting Types
+
+public enum NoteError: LocalizedError {
+    case invalidOctave(String)
+
+    public var errorDescription: String? {
+        switch self {
+        case let .invalidOctave(octave):
+            return "Invalid octave '\(octave)'."
+        }
     }
 }
 
@@ -52,7 +55,7 @@ public extension Note {
 
 extension Note: RawRepresentable {
     public var rawValue: String {
-        "\(self.noteClass.name)\(self.octave.rawValue)"
+        "\(self.noteClass.name)\(self.octave)"
     }
 
     public init?(rawValue: String) {
@@ -64,15 +67,12 @@ extension Note: RawRepresentable {
         let noteClass = try NoteClass(name: semitoneName)
 
         let octaveString = try text.match(for: "[0-9]{1,2}")
-        let octave = try Octave(rawValue: octaveString)
+
+        guard let octave = Int(octaveString) else {
+            throw NoteError.invalidOctave(octaveString)
+        }
 
         self.init(noteClass, octave: octave)
-    }
-}
-
-extension Note: Comparable {
-    public static func < (lhs: Note, rhs: Note) -> Bool {
-        lhs.frequency < rhs.frequency
     }
 }
 
@@ -97,14 +97,6 @@ public extension Array where Element == Note {
         self = rawValue
             .split(separator: " ")
             .compactMap { Note(rawValue: String($0)) }
-    }
-
-    var lowest: Note? {
-        self.min()
-    }
-
-    var highest: Note? {
-        self.max()
     }
 }
 
@@ -197,12 +189,12 @@ public extension Note {
 
 public extension Note {
     // https://en.wikipedia.org/wiki/A440_(pitch_standard)
-    static let standard: Self = .init(.a, octave: 4, frequency: 440)
-    static let lowest: Self = .init(.c, octave: 0, frequency: NoteClass.c.frequency)
-    static let highest: Self = .init(.b, octave: 8, frequency: 7920.13)
+    static let standard: Self = .init(.a, octave: 4)
+    static let lowest: Self = .init(.c, octave: 0)
+    static let highest: Self = .init(.b, octave: 8)
 
     static let middleA: Self = .standard
-    static let middleC: Self = .init(.c, octave: 4, frequency: 261.63)
+    static let middleC: Self = .init(.c, octave: 4)
 
     static let inactiveNoteSymbol = "-"
 }
