@@ -24,7 +24,7 @@
 
 - For the time being, this package is focused on collecting, validating, and localizing data for **string instruments only**. Once string instruments feel accurate and stable and the library is extremely tested, the plan will be to add brass, keyboards, percussions, and more.
 - The library currently leverages an internal dependency for musical notation (`NoteKit`), but should be reaplced by the more accurate and better maintained [`AudioKit/Tonic`](https://github.com/AudioKit/Tonic) as soon as possible. Musical math and theory is difficult, and `InstrumentKit` doesn't want to be in the business of musical math or theory.
-- Provide system for ensuring paritally localized models provide English values by default. Currently, they fall back on the `localizationKey`, meaning `"Guitar"` translated to a partial localiation without the `"guitar"` key will show up as `"guitar"`, not `"Guitar"`.
+- Provide system for ensuring paritally localized models provide English values by default. Currently, they fall back on the `localizationKey`, meaning `"Guitar"` translated to a partial localization without the `"guitar"` key will show up as `"guitar"`, not `"Guitar"`.
   - This already works for _missing_ localizations, but doesn't work for _partial_ localizations.
   - This functionality shouldn't be much more work to achieve without increasing performance.
 
