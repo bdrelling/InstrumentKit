@@ -43,7 +43,7 @@ private extension TuningLocalizationTests {
         for tuning in Tuning.allCases.localized(to: localeIdentifier) {
             // The name should not contain the localization key,
             // which would imply that the name could not be localized.
-            XCTAssertFalse(tuning.name.contains(tuning.localizationKey), "Tuning \(tuning) is not properly localized.")
+            XCTAssertFalse(tuning.name.contains(tuning.localizationKey), "Tuning \(tuning) is not properly localized for identifier \(localeIdentifier).")
         }
     }
 

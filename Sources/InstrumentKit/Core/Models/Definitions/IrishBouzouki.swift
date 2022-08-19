@@ -3,14 +3,21 @@
 public extension StringInstrument {
     static let irishBouzouki: Self = .init(
         localizationKey: "irish_bouzouki",
-        numberOfStrings: 4,
-        numberOfCourses: 1,
-        tunings: Tuning.IrishBouzouki.self
+        numberOfStrings: 8,
+        numberOfCourses: 4,
+        tunings: Tuning.IrishBouzouki.self,
+        resources: [
+            .wikipedia: "https://wikipedia.org/wiki/Irish_bouzouki",
+        ]
     )
 }
 
 public extension Tuning {
     enum IrishBouzouki: Tuning, CaseIterable {
-        case standard = "standard: G2 D3 A3 D4"
+        case standard = "standard: G3 G2 D3 D3 A3 A3 D4 D4"
+        case common = "common: G3 G2 D4 D3 A3 A3 E4 E4"
+        case mandolin = "mandolin: G2 G2 D3 D3 A3 A3 E4 E4"
+        case openD = "open_d: A2 A2 D3 D3 A3 A3 D4 D4"
+        case openG = "open_g: G2 G2 D3 D3 G3 G3 D4 D4"
     }
 }

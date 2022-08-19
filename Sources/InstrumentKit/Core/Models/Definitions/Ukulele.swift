@@ -4,7 +4,7 @@ public extension StringInstrument {
     static let ukulele: Self = .init(
         localizationKey: "ukulele",
         numberOfStrings: 4,
-        numberOfCourses: 1,
+        numberOfCourses: 4,
         tunings: Tuning.Ukulele.self
     )
 }

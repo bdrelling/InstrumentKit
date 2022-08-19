@@ -21,7 +21,14 @@ extension Bundle {
 
     func localizedString(for locale: Locale = .current, key: String, value: String? = nil, table: String) -> String {
         let bundle = (try? self.localized(for: locale)) ?? self
+        let localizedString = bundle.localizedString(forKey: key, value: value, table: table)
 
-        return bundle.localizedString(forKey: key, value: value, table: table)
+        // If our localized string matches the key, it means we didn't receive a localization.
+        // Instead of returning the key, grab the default (English) localization.
+        guard localizedString != key else {
+            return self.localizedString(forKey: key, value: value, table: table)
+        }
+
+        return localizedString
     }
 }

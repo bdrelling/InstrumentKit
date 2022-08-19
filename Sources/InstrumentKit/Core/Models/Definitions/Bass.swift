@@ -4,13 +4,13 @@ public extension StringInstrument {
     static let bass: Self = .init(
         localizationKey: "bass",
         numberOfStrings: 4,
-        numberOfCourses: 1,
+        numberOfCourses: 4,
         tunings: Tuning.Bass.self
     )
 }
 
 public extension Tuning {
     enum Bass: Tuning, CaseIterable {
-        case standard = "standard: E2 A2 D3 G3"
+        case standard = "standard: E1 A1 D2 G2"
     }
 }

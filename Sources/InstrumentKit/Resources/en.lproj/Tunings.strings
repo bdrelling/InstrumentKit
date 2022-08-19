@@ -1,8 +1,23 @@
-/* Tunings */
-
 "standard" = "Standard";
+"common" = "Common";
 
-/* Guitar */
-
+"drop_a" = "Drop A";
+"drop_b" = "Drop B";
+"drop_c" = "Drop C";
 "drop_d" = "Drop D";
+"drop_e" = "Drop E";
+"drop_f" = "Drop F";
+"drop_g" = "Drop G";
+
+"open_a" = "Open A";
+"open_b" = "Open B";
+"open_c" = "Open C";
 "open_d" = "Open D";
+"open_e" = "Open E";
+"open_f" = "Open F";
+"open_g" = "Open G";
+
+"mandolin" = "Mandolin";
+"lute" = "Lute";
+"irish" = "Irish";
+"nashville" = "Nashville";
