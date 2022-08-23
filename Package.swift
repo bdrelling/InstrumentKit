@@ -63,6 +63,6 @@ let package = Package(
 #if swift(>=5.5)
 // Add Kipple Tools
 package.dependencies.append(
-    .package(url: "https://github.com/swift-kipple/Tools", .upToNextMinor(from: "0.2.3"))
+    .package(url: "https://github.com/swift-kipple/Tools", .upToNextMinor(from: "0.2.5"))
 )
 #endif
