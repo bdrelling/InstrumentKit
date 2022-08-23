@@ -16,11 +16,6 @@ let package = Package(
         .library(name: "InstrumentKit", targets: ["InstrumentKit"]),
         .library(name: "NoteKit", targets: ["NoteKit"]),
     ],
-    dependencies: [
-        .package(url: "https://github.com/AudioKit/Tonic", .upToNextMinor(from: "1.0.4")),
-        // Development
-        .package(url: "https://github.com/swift-kipple/Tools", .upToNextMinor(from: "0.2.3")),
-    ],
     targets: [
         // Product Targets
         .target(
@@ -64,3 +59,10 @@ let package = Package(
         ),
     ]
 )
+
+#if swift(>=5.5)
+// Add Kipple Tools
+package.dependencies.append(
+    .package(url: "https://github.com/swift-kipple/Tools", .upToNextMinor(from: "0.2.3"))
+)
+#endif
