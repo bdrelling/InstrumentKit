@@ -21,22 +21,6 @@ jobs:
         uses: styfle/cancel-workflow-action@0.10.0
         with:
           access_token: ${{ github.token }}
-  # lint:
-  #   name: Lint
-  #   runs-on: macos-11
-  #   permissions:
-  #     pull-requests: write
-  #   env:
-  #     DANGER_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  #   steps:
-  #     - name: Checkout
-  #       uses: actions/checkout@v2
-  #     - name: Install Dependencies
-  #       run: |
-  #         bundle install
-  #         brew install swiftformat
-  #     - name: Run Danger
-  #       run: sh ./scripts/danger_lint.sh
   swift_test_linux:
     name: swift test (Ubuntu)
     # Available Runners: https://github.com/actions/virtual-environments
@@ -68,4 +52,38 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: Output (macOS)
+          path: ${{ env.DEPLOY_DIRECTORY }}
+  swift_test_xcode:
+    name: swift test (Xcode ${{ matrix.compiler.xcode_version }}, Swift ${{ matrix.compiler.swift_version }})
+    # Available Runners: https://github.com/actions/virtual-environments
+    runs-on: ${{ matrix.compiler.runner }}
+    needs: [prepare]
+    strategy:
+      matrix:
+        # Each version of Xcodes comes with a bundled version of Swift.
+        # https://swiftversion.net
+        compiler: [
+            { runner: macos-11, xcode_version: 12.4, swift_version: 5.3.2 },
+            { runner: macos-11, xcode_version: 12.5.1, swift_version: 5.4.2 },
+            # Xcode 13.2 doesn't require macOS 12, but we'll use the latest anyway.
+            { runner: macos-12, xcode_version: 13.2, swift_version: 5.5.2 },
+            # Xcode 13.4+ requires macOS 12+
+            { runner: macos-12, xcode_version: 13.4, swift_version: 5.6.1 },
+          ]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup Xcode
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: ${{ matrix.compiler.xcode_version }}
+      - name: Swift Version Check
+        run: swift --version
+      - name: Run Tests
+        run: sh ./scripts/swift_test.sh
+        continue-on-error: true
+      - name: Upload Step Output
+        uses: actions/upload-artifact@v1
+        with:
+          name: Output (Xcode ${{ matrix.compiler.xcode_version }}, Swift ${{ matrix.compiler.swift_version }})
           path: ${{ env.DEPLOY_DIRECTORY }}

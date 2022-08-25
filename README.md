@@ -168,4 +168,4 @@ Special thanks to [AudioKit](https://github.com/AudioKit/AudioKit) for all of th
 
 ## License
 
-**InstrumentKit** is released under the MIT license. See [LICENSE](/LICENSE) for details.
+This project is released under the MIT license. See [LICENSE](/LICENSE) for details.
