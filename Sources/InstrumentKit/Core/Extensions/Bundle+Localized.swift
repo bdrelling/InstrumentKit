@@ -8,7 +8,7 @@ extension Bundle {
             throw LocalizationError.projectNotFound(languageCode)
         }
 
-        return .init(path: path)
+        return Bundle(path: path)
     }
 
     func localized(for locale: Locale) throws -> Bundle? {
