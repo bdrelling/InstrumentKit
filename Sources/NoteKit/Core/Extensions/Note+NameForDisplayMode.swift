@@ -10,7 +10,7 @@ public extension Note {
     }
 }
 
-#if canImport(SwiftUI)
+#if swift(>=5.5) && canImport(SwiftUI)
 
 import SwiftUI
 
