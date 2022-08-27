@@ -10,5 +10,6 @@ on:
 jobs:
   swift_test:
     uses: bdrelling/ci/.github/workflows/swift_test_universal_package_5_3.yml@main
+    secrets: inherit
     with:
       scheme: InstrumentKit-Package
