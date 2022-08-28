@@ -53,16 +53,16 @@ final class TuningTests: XCTestCase {
 
     func testSortingPrioritizesStandardTunings() throws {
         let unsortedTunings: [Tuning] = [
-            .Guitar.openD.rawValue,
-            .Guitar.dropD.rawValue,
-            .Guitar.standard.rawValue,
+            Tuning.Guitar.openD.rawValue,
+            Tuning.Guitar.dropD.rawValue,
+            Tuning.Guitar.standard.rawValue,
         ]
 
         let sortedTunings: [Tuning] = [
             // Standard is first, then alphabetical order.
-            .Guitar.standard.rawValue,
-            .Guitar.dropD.rawValue,
-            .Guitar.openD.rawValue,
+            Tuning.Guitar.standard.rawValue,
+            Tuning.Guitar.dropD.rawValue,
+            Tuning.Guitar.openD.rawValue,
         ]
 
         XCTAssertEqual(unsortedTunings.sorted(), sortedTunings)
