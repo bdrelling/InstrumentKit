@@ -4,12 +4,12 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-  pull_request:
-    branches: [main]
 
 jobs:
   swift_test:
-    uses: bdrelling/ci/.github/workflows/swift_test_universal_package_5_3.yml@main
+    uses: bdrelling/ci/.github/workflows/swift_test.yml@main
     secrets: inherit
     with:
       scheme: InstrumentKit-Package
+      platforms: iOS tvOS macOS watchOS Linux
+      swift-versions: 5.3 5.4 5.5 5.6
