@@ -19,7 +19,7 @@ final class TuningTests: XCTestCase {
     }
 
     func testGuitarStandardTuning() {
-        let tuning: Tuning = .Guitar.standard.rawValue
+        let tuning = Tuning.Guitar.standard.rawValue
 
         let pitchClasses = tuning.notes.map(\.pitchClass)
         XCTAssertEqual(pitchClasses, [

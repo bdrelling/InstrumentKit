@@ -88,7 +88,7 @@
 //
 //    #warning("Update, but just remove the InstrumentKit dependency.")
 ////    func testGuitarStandardTuning() {
-////        let tuning: Tuning = .Guitar.standard.rawValue
+////        let tuning = Tuning.Guitar.standard.rawValue
 ////
 ////        let frequencies = tuning.notes.map(\.frequency)
 ////        XCTAssertEqual(frequencies, [
