@@ -1,5 +1,0 @@
-#!/bin/bash
-
-# Run the kipple-format command, telling it to detect and use modified files only.
-# Once the command is complete, modified files are added back to the commit.
-swift run kipple format --staged-only --quiet
