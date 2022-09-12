@@ -1,4 +1,15 @@
+"banjo_five_string.name" = "Banjo, 5-string";
 "bass.name" = "Bass";
+"bouzouki_tetrachordo.name" = "Bouzouki, Tetrachordo";
+"bouzouki_trichordo.name" = "Bouzouki, Trichordo";
+"cello.name" = "Cello";
+"double_bass_five_string.name" = "Double Bass, 5-string";
+"double_bass.name" = "Double Bass";
+"fiddle.name" = "Fiddle";
 "guitar.name" = "Guitar";
-"irish_bouzouki.name" = "Irish Bouzouki";
+"irish_bouzouki.name" = "Bouzouki, Irish";
+"mandolin.name" = "Mandolin";
+"pedal_harp.name" = "Harp, Pedal";
 "ukulele.name" = "Ukulele";
+"viola.name" = "Viola";
+"violin.name" = "Violin";

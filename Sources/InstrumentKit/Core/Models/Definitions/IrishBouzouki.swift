@@ -6,8 +6,11 @@ public extension StringInstrument {
         numberOfStrings: 8,
         numberOfCourses: 4,
         tunings: Tuning.IrishBouzouki.self,
+        classifications: [.neckedBoxLute],
+        countries: [.ie],
+        year: 1969,
         resources: [
-            .wikipedia: "https://wikipedia.org/wiki/Irish_bouzouki",
+            .init(.wikipedia, url: "https://wikipedia.org/wiki/Irish_bouzouki"),
         ]
     )
 }

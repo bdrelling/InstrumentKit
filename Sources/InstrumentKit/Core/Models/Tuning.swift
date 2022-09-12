@@ -5,7 +5,7 @@ import NoteKit
 
 public struct Tuning {
     private static let localizationTableName = "Tunings"
-    private static let defaultTuningKey = "standard"
+    static let defaultTuningKey = "standard"
 
     public let localizationKey: String
     public let name: String

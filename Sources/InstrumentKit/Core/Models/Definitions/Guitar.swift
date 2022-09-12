@@ -5,7 +5,8 @@ public extension StringInstrument {
         localizationKey: "guitar",
         numberOfStrings: 6,
         numberOfCourses: 6,
-        tunings: Tuning.Guitar.self
+        tunings: Tuning.Guitar.self,
+        classifications: [.neckedBoxLute]
     )
 }
 

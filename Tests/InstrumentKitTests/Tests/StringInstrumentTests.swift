@@ -18,7 +18,7 @@ final class StringInstrumentTests: XCTestCase {
         for instrument in StringInstrument.allCases {
             for tuning in instrument.tunings {
                 // Tunings should have the correct number of strings.
-                XCTAssertEqual(tuning.notes.count, instrument.numberOfStrings, "Tuning \(tuning) has an invalid number of strings.")
+                XCTAssertEqual(tuning.notes.count, instrument.numberOfStrings, "Tuning \(tuning) has an invalid number of strings. (\(instrument.name)")
             }
 
             // Ensure all tunings for the instrument have unique localization keys.

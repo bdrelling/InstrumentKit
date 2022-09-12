@@ -5,7 +5,10 @@ public extension StringInstrument {
         localizationKey: "ukulele",
         numberOfStrings: 4,
         numberOfCourses: 4,
-        tunings: Tuning.Ukulele.self
+        tunings: Tuning.Ukulele.self,
+        classifications: [.neckedBoxLute],
+        countries: [.us, .pt],
+        year: 1880
     )
 }
 

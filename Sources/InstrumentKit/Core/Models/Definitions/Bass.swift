@@ -5,7 +5,10 @@ public extension StringInstrument {
         localizationKey: "bass",
         numberOfStrings: 4,
         numberOfCourses: 4,
-        tunings: Tuning.Bass.self
+        tunings: Tuning.Bass.self,
+        classifications: [.neckedBoxLute],
+        countries: [.us],
+        year: 1930
     )
 }
 
