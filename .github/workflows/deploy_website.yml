@@ -1,0 +1,30 @@
+name: Deploy Website
+
+on:
+  # REMOVE WORKFLOW DISPATCH WHEN DONE TESTING
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/deploy_website.yml'
+      - 'Plugins/**'
+      - 'Snippets/**'
+      - 'Sources/**'
+      - 'Tests/**'
+      - '**.swift'
+      - 'Package.resolved'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy Stage
+        uses: actions/github-script@v5
+        with:
+          script: |
+            await github.rest.actions.createWorkflowDispatch({
+              'bdrelling',
+              'instruments.fyi',
+              'workflows/deploy_website.yml',
+              'main',
+            });
