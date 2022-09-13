@@ -18,13 +18,9 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Deploy Stage
-        uses: actions/github-script@v5
+      - name: Trigger Deployment Workflow
+        uses: peter-evans/repository-dispatch@v2
         with:
-          script: |
-            await github.rest.actions.createWorkflowDispatch({
-              'bdrelling',
-              'instruments.fyi',
-              'workflows/deploy_website.yml',
-              'main',
-            });
+          token: ${{ secrets.INSTRUMENTS_FYI_PAT }}
+          repository: bdrelling/instruments.fyi
+          event-type: deploy-website
