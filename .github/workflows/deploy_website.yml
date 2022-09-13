@@ -1,8 +1,6 @@
 name: Deploy Website
 
 on:
-  # REMOVE WORKFLOW DISPATCH WHEN DONE TESTING
-  workflow_dispatch:
   push:
     branches: [main]
     paths:
