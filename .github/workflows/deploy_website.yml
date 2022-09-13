@@ -23,4 +23,4 @@ jobs:
         with:
           token: ${{ secrets.INSTRUMENTS_FYI_PAT }}
           repository: bdrelling/instruments.fyi
-          event-type: deploy-website
+          event-type: InstrumentKit Deployment
