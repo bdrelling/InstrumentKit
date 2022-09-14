@@ -4,6 +4,10 @@ import InstrumentKit
 import XCTest
 
 final class HornbostelSachsTests: XCTestCase {
+    func testRootEnum() {
+        XCTAssertEqual(HornbostelSachs.allCases.count, 44)
+    }
+
     func testIdiophones() {
         XCTAssertEqual(HornbostelSachs.Idiophone.allCases.count, 13)
 
@@ -71,6 +75,12 @@ final class HornbostelSachsTests: XCTestCase {
         self.assert(.electrophone(.electricActuated), "51")
         self.assert(.electrophone(.electricAmplified), "52")
         self.assert(.electrophone(.radioelectric), "53")
+    }
+
+    func testComposite() {
+        let classification: HornbostelSachs = .composite(.chordophone(.simple(.tube)), .aerophone(.nonFree(.trumpet)))
+
+        self.assert(classification, "312+423")
     }
 }
 
