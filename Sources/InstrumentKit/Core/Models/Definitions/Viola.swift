@@ -6,7 +6,7 @@ public extension StringInstrument {
         numberOfStrings: 4,
         numberOfCourses: 4,
         tunings: Tuning.Viola.self,
-        classifications: [.neckedBoxLute],
+        classification: .chordophone(.composite(.lute)),
         countries: [.it],
         year: 1530
     )

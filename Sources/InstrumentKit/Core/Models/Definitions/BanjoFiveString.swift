@@ -6,7 +6,7 @@ public extension StringInstrument {
         numberOfStrings: 5,
         numberOfCourses: 5,
         tunings: Tuning.BanjoFiveString.self,
-        classifications: [.spikeBoxLute],
+        classification: .chordophone(.composite(.lute)),
         year: 1770
     )
 }

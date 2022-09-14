@@ -6,7 +6,7 @@ public extension StringInstrument {
         numberOfStrings: 6,
         numberOfCourses: 6,
         tunings: Tuning.Guitar.self,
-        classifications: [.neckedBoxLute]
+        classification: .chordophone(.composite(.lute))
     )
 }
 

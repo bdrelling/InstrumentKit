@@ -10,7 +10,7 @@ public struct StringInstrument {
     public let numberOfStrings: Int
     public let numberOfCourses: Int
     public let tunings: [Tuning]
-    public let classifications: [HornbostelSachsClassification]
+    public let classification: HornbostelSachs
     public let countries: [CountryCode]
     public let year: Int?
     public let aliasedInstrumentKey: String?
@@ -35,7 +35,7 @@ public struct StringInstrument {
         numberOfStrings: Int,
         numberOfCourses: Int,
         tunings: [Tuning],
-        classifications: [HornbostelSachsClassification],
+        classification: HornbostelSachs,
         countries: [CountryCode] = [],
         year: Int? = nil,
         aliasedInstrumentKey: String?,
@@ -49,7 +49,7 @@ public struct StringInstrument {
         self.numberOfStrings = numberOfStrings
         self.numberOfCourses = numberOfCourses
         self.tunings = tunings
-        self.classifications = classifications
+        self.classification = classification
         self.countries = countries
         self.year = year
         self.aliasedInstrumentKey = aliasedInstrumentKey
@@ -62,7 +62,7 @@ public struct StringInstrument {
         numberOfStrings: Int,
         numberOfCourses: Int,
         tunings: Enum.Type,
-        classifications: [HornbostelSachsClassification],
+        classification: HornbostelSachs,
         countries: [CountryCode] = [],
         year: Int? = nil,
         aliasedInstrumentKey: String? = nil,
@@ -74,7 +74,7 @@ public struct StringInstrument {
             numberOfStrings: numberOfStrings,
             numberOfCourses: numberOfCourses,
             tunings: tunings.allCases.map(\.rawValue),
-            classifications: classifications,
+            classification: classification,
             countries: countries,
             year: year,
             aliasedInstrumentKey: aliasedInstrumentKey,
@@ -95,7 +95,7 @@ public struct StringInstrument {
             numberOfStrings: aliasedInstrument.numberOfStrings,
             numberOfCourses: aliasedInstrument.numberOfCourses,
             tunings: aliasedInstrument.tunings,
-            classifications: aliasedInstrument.classifications,
+            classification: aliasedInstrument.classification,
             countries: countries ?? aliasedInstrument.countries,
             year: year ?? aliasedInstrument.year,
             aliasedInstrumentKey: aliasedInstrument.localizationKey,
@@ -127,7 +127,7 @@ public extension Resource {
 extension StringInstrument: Codable {
     enum CodingKeys: String, CodingKey {
         case aliasedInstrumentKey
-        case classifications
+        case classification
         case countries
         case localizationKey
         case name
@@ -168,7 +168,7 @@ extension StringInstrument: Localizable {
             numberOfStrings: self.numberOfStrings,
             numberOfCourses: self.numberOfCourses,
             tunings: self.tunings,
-            classifications: self.classifications,
+            classification: self.classification,
             countries: self.countries,
             year: self.year,
             aliasedInstrumentKey: self.aliasedInstrumentKey,

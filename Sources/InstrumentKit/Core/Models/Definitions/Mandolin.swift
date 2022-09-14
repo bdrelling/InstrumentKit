@@ -6,10 +6,7 @@ public extension StringInstrument {
         numberOfStrings: 8,
         numberOfCourses: 4,
         tunings: Tuning.Mandolin.self,
-        classifications: [
-            .neckedBowlLute,
-            .neckedBoxLute,
-        ],
+        classification: .chordophone(.composite(.lute)),
         countries: [.it],
         year: 1744
     )

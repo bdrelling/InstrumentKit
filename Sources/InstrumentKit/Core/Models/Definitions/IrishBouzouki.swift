@@ -6,7 +6,7 @@ public extension StringInstrument {
         numberOfStrings: 8,
         numberOfCourses: 4,
         tunings: Tuning.IrishBouzouki.self,
-        classifications: [.neckedBoxLute],
+        classification: .chordophone(.composite(.lute)),
         countries: [.ie],
         year: 1969,
         resources: [

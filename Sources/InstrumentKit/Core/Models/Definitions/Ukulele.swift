@@ -6,7 +6,7 @@ public extension StringInstrument {
         numberOfStrings: 4,
         numberOfCourses: 4,
         tunings: Tuning.Ukulele.self,
-        classifications: [.neckedBoxLute],
+        classification: .chordophone(.composite(.lute)),
         countries: [.us, .pt],
         year: 1880
     )

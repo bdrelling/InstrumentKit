@@ -6,7 +6,7 @@ public extension StringInstrument {
         numberOfStrings: 8,
         numberOfCourses: 4,
         tunings: Tuning.BouzoukiTetrachordo.self,
-        classifications: [.neckedBoxLute],
+        classification: .chordophone(.composite(.lute)),
         countries: [.gr],
         year: 1910,
         resources: [

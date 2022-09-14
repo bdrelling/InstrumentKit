@@ -7,7 +7,7 @@ public extension StringInstrument {
         numberOfStrings: 47,
         numberOfCourses: 47,
         tunings: Tuning.PedalHarp.self,
-        classifications: [.frameHarpWithPedalTuningAction],
+        classification: .chordophone(.composite(.harp)),
         countries: [.fr]
     )
 }
