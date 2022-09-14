@@ -10,12 +10,12 @@ public extension HornbostelSachs {
     ///   - [Electrophone](https://en.wikipedia.org/wiki/Electrophone)
     ///   - [Hornbostel-Sachs - Electrophones](https://en.wikipedia.org/wiki/Hornbostel–Sachs#Electrophones_(5))
     ///   - [List of Electrophones](https://en.wikipedia.org/wiki/List_of_electrophones_by_Hornbostel–Sachs_number)
-    enum Electrophone: String, Codable, CaseIterable {
+    enum Electrophone: String, HornbostelSachsClassifying {
         /// Electrophones that are acoustic but electrically actuated..
-        case electricActuated = "1"
+        case electricActuated = "51"
         /// Electrophones that are acoustic but electrically amplified.
-        case electricAmplified = "2"
+        case electricAmplified = "52"
         /// Electrophones which make sound primarily by way of electrically driven oscillators, such as theremins or synthesizers.
-        case radioelectric = "3"
+        case radioelectric = "53"
     }
 }

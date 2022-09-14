@@ -82,6 +82,48 @@ final class HornbostelSachsTests: XCTestCase {
 
         self.assert(classification, "312+423")
     }
+
+    func testSorting() {
+        // A random collection of classifications across all categories to test sorting.
+        // These are purposefully listed as groups in mixed order.
+        let classifications: [HornbostelSachs] = [
+            .composite( // 311+51
+                .chordophone(.simple(.bar)),
+                .electrophone(.electricActuated)
+            ),
+
+            .idiophone(.plucked(.frame)), // 121
+            .idiophone(.unclassified), // 15
+
+            .chordophone(.simple(.trough)), // 315
+            .chordophone(.unclassified), // 33
+
+            .membranophone(.struck(.direct)), // 211
+            .membranophone(.plucked), // 22
+            .membranophone(.friction(.stick)), // 231
+            .membranophone(.unclassified), // 25
+
+            .aerophone(.free(.plosive)), // 413
+            .aerophone(.mixed), // 43
+
+            .electrophone(.electricAmplified), // 52
+        ].sorted()
+
+        XCTAssertEqual(classifications.map(\.rawValue), [
+            "121",
+            "15",
+            "211",
+            "22",
+            "231",
+            "25",
+            "315",
+            "33",
+            "413",
+            "43",
+            "52",
+            "311+51",
+        ])
+    }
 }
 
 // MARK: - Extensions
@@ -89,7 +131,7 @@ final class HornbostelSachsTests: XCTestCase {
 private extension HornbostelSachsTests {
     func assert(_ classification: HornbostelSachs, _ rawValue: String) {
         XCTAssertEqual(classification.rawValue, rawValue)
-//        XCTAssertEqual(classification.description, rawValue)
+        XCTAssertEqual(classification.description, rawValue)
         XCTAssertEqual(String(describing: classification), rawValue)
     }
 }
