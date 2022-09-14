@@ -13,6 +13,12 @@ public enum HornbostelSachsClassification: String, Codable {
 
 // MARK: - Extensions
 
+extension HornbostelSachsClassification: Identifiable {
+    public var id: RawValue {
+        self.rawValue
+    }
+}
+
 extension HornbostelSachsClassification: CustomStringConvertible {
     public var description: String {
         self.rawValue

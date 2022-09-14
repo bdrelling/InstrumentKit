@@ -14,6 +14,7 @@ let package = Package(
     products: [
         .library(name: "Frequency", targets: ["Frequency"]),
         .library(name: "InstrumentKit", targets: ["InstrumentKit"]),
+        .library(name: "InstrumentUI", targets: ["InstrumentUI"]),
         .library(name: "NoteKit", targets: ["NoteKit"]),
     ],
     targets: [
@@ -31,6 +32,12 @@ let package = Package(
             ],
             resources: [
                 .process("Resources"),
+            ]
+        ),
+        .target(
+            name: "InstrumentUI",
+            dependencies: [
+                .target(name: "InstrumentKit"),
             ]
         ),
         .target(
