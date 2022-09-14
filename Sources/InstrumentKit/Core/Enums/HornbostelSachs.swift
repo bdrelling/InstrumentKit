@@ -31,12 +31,6 @@ public extension HornbostelSachs {
     }
 }
 
-extension HornbostelSachs: CustomStringConvertible {
-    public var description: String {
-        self.rawValue
-    }
-}
-
 public extension HornbostelSachs {
     var rawValue: String {
         switch self {
@@ -53,6 +47,12 @@ public extension HornbostelSachs {
         case let .composite(classifications):
             return classifications.rawValue
         }
+    }
+}
+
+extension HornbostelSachs: CustomStringConvertible {
+    public var description: String {
+        self.rawValue
     }
 }
 

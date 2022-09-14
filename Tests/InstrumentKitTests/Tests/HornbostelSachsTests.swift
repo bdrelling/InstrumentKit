@@ -89,5 +89,7 @@ final class HornbostelSachsTests: XCTestCase {
 private extension HornbostelSachsTests {
     func assert(_ classification: HornbostelSachs, _ rawValue: String) {
         XCTAssertEqual(classification.rawValue, rawValue)
+//        XCTAssertEqual(classification.description, rawValue)
+        XCTAssertEqual(String(describing: classification), rawValue)
     }
 }
