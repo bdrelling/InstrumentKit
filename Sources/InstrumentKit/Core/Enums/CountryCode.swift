@@ -2,6 +2,7 @@
 
 import Foundation
 
+// TODO: Rename all variables with country names instead for readability.
 public enum CountryCode: String, Codable, CaseIterable {
     case ad = "AD"
     case ae = "AE"

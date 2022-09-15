@@ -1,4 +1,4 @@
-// swift-tools-version:5.3
+// swift-tools-version:5.5
 
 import PackageDescription
 
@@ -15,6 +15,10 @@ let package = Package(
         .library(name: "Frequency", targets: ["Frequency"]),
         .library(name: "InstrumentKit", targets: ["InstrumentKit"]),
         .library(name: "NoteKit", targets: ["NoteKit"]),
+    ],
+    dependencies: [
+        // Development
+        .package(url: "https://github.com/swift-kipple/Tools", .upToNextMinor(from: "0.3.0")),
     ],
     targets: [
         // Product Targets
@@ -59,10 +63,3 @@ let package = Package(
         ),
     ]
 )
-
-#if swift(>=5.5)
-// Add Kipple Tools
-package.dependencies.append(
-    .package(url: "https://github.com/swift-kipple/Tools", .upToNextMinor(from: "0.3.1"))
-)
-#endif
