@@ -1,4 +1,4 @@
-// Copyright © 2022 Brian Drelling. All rights reserved.
+// Copyright © 2023 Brian Drelling. All rights reserved.
 
 public extension Note {
     // https://en.wikipedia.org/wiki/A440_(pitch_standard)

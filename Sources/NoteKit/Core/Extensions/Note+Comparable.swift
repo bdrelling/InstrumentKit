@@ -1,4 +1,4 @@
-// Copyright © 2022 Brian Drelling. All rights reserved.
+// Copyright © 2023 Brian Drelling. All rights reserved.
 
 extension Note: Comparable {
     public static func < (lhs: Self, rhs: Self) -> Bool {
