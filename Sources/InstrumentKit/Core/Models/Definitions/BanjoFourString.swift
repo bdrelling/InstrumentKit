@@ -15,7 +15,7 @@ public extension Tuning {
     enum BanjoFourString: Tuning, CaseIterable {
         case standard = "standard: C3 G3 D3 A4"
         case chicago = "chicago: D3 G3 B3 E4"
-        case irishTenor = "irish_tenor: G3 D3 A3 E4"
+        case irishTenor = "irish_tenor: G2 D3 A3 E4"
         case plectrum = "plectrum: C3 G3 B3 D4"
     }
 }
