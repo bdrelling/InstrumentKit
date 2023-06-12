@@ -17,13 +17,16 @@
 "open_f" = "Open F";
 "open_g" = "Open G";
 
+"chicago" = "Chicago";
 "mandolin" = "Mandolin";
 "lute" = "Lute";
 "irish" = "Irish";
+"irish_tenor" = "Irish Tenor";
 "nashville" = "Nashville";
 "tenor" = "Tenor";
 "cajun" = "Cajun";
 "open" = "Open";
+"plectrum" = "Plectrum";
 "sawmill" = "Sawmill";
 "high_bass" = "High Bass";
 "calico" = "Calico";
