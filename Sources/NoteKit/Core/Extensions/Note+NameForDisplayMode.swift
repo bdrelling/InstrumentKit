@@ -1,6 +1,10 @@
-// Copyright © 2022 Brian Drelling. All rights reserved.
+// Copyright © 2023 Brian Drelling. All rights reserved.
 
 public extension Note {
+    var displayName: String {
+        self.displayName(for: .default)
+    }
+
     func displayName(for displayMode: NoteDisplayMode) -> String {
         guard self.pitchClass.isSharp else {
             return self.rawValue

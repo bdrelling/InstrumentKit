@@ -1,4 +1,4 @@
-// Copyright © 2022 Brian Drelling. All rights reserved.
+// Copyright © 2023 Brian Drelling. All rights reserved.
 
 // Source: https://stackoverflow.com/a/45340537/706771
 public extension BidirectionalCollection where Iterator.Element: Equatable {

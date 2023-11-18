@@ -15,6 +15,10 @@ public struct Note: Codable, Equatable, Hashable {
 // MARK: - Extensions
 
 public extension Note {
+    var isSharp: Bool {
+        self.pitchClass.isSharp
+    }
+
     func octaveLower() -> Self {
         .init(self.pitchClass, octave: self.octave - 1)
     }
